@@ -1,0 +1,26 @@
+{
+  "name": "globe_tweet",
+  "version": "0.0.1",
+  "description": "GlobeTweet is a web application that allows users to search anywhere on the globe and view a live stream of tweets from that location.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cameronjacoby/globe_tweet.git"
+  },
+  "author": "Cameron Jacoby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cameronjacoby/globe_tweet/issues"
+  },
+  "homepage": "https://github.com/cameronjacoby/globe_tweet",
+  "dependencies": {
+    "body-parser": "^1.5.2",
+    "ejs": "^1.0.0",
+    "express": "^4.7.2",
+    "socket.io": "^1.0.6",
+    "twit": "^1.1.18"
+  }
+}
