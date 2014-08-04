@@ -14,10 +14,10 @@ function showMap(err, data) {
     var coord4 = data.lbounds._northEast.lat;
     console.log('coordinates:');
     console.log(coord1, coord2, coord3, coord4);
-    
+
   } else if (data.latlng) {
     map.setView([data.latlng[0], data.latlng[1]], 13);
-    console.log('this is the data');
+    console.log('latlng data:');
     console.log(data.latlng);
   }
 }
