@@ -18,15 +18,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get('/', function(req, res) {
-  res.render('site/index');
+  res.render('site/index', {location: ''});
 });
 
 
 app.post('/search', function(req, res) {
-  res.render('site/index');
+  var location = req.body.location;
+  console.log(location);
+  res.render('site/index', {location: location});
 });
 
 
 app.get('/*', function(req, res) {
+  res.status(404);
   res.render('site/404');
 });
