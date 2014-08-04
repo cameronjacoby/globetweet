@@ -22,6 +22,30 @@ app.get('/', function(req, res) {
 });
 
 
+var T = new Twit({
+  consumer_key: config.twitter.consumer_key,
+  consumer_secret: config.twitter.consumer_secret,
+  access_token: config.twitter.access_token,
+  access_token_secret: config.twitter.access_token_secret
+});
+
+var coord1 = '-122.75';
+var coord2 = '36.8';
+var coord3 = '-121.75';
+var coord4 = '37.8';
+var loc = [coord1, coord2, coord3, coord4];
+
+io.sockets.on('connection', function (socket) {
+  console.log('Connected');
+
+  var stream = T.stream('statuses/filter', {locations: loc});
+
+  stream.on('tweet', function (tweet) {
+    io.sockets.emit('stream', tweet.text);
+  });
+});
+
+
 app.post('/search', function(req, res) {
   var location = req.body.location;
   console.log(location);
@@ -33,3 +57,7 @@ app.get('/*', function(req, res) {
   res.status(404);
   res.render('site/404');
 });
+
+
+
+

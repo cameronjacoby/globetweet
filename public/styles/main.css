@@ -19,3 +19,14 @@ form, #loc {
   bottom: 0;
   width: 80%;
 }
+
+h2 {
+  margin-left: 20px;
+  color: blue;
+}
+
+#tweetd {
+  margin-left: 20px;
+  width: 15%;
+  color: blue;
+}
