@@ -34,14 +34,49 @@ var coord2 = '36.8';
 var coord3 = '-121.75';
 var coord4 = '37.8';
 var loc = [coord1, coord2, coord3, coord4];
+var newLocation = null;
+var stream;
 
-io.sockets.on('connection', function (socket) {
-  console.log('CONNECTED');
-  var stream  = T.stream("statuses/filter", {locations: loc});
-  stream.on('tweet', function (tweet) {
-    io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
+
+var startSocNewLoc = function() {
+  io.sockets.on('connection', function (socket) {
+    console.log('CONNECTED');
+    stream = T.stream("statuses/filter", {locations: newLocation});
+    stream.on('tweet', function (tweet) {
+      io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
+    });
   });
-});
+};
+
+
+var startSocket = function() {
+
+  io.sockets.on('connection', function (socket) {
+    console.log('CONNECTED');
+
+    if (newLocation === null) {
+
+      stream = T.stream("statuses/filter", {locations: loc});
+      stream.on('tweet', function (tweet) {
+        io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
+      });
+
+    } else {
+      socket.disconnect();
+      console.log('STOPPED!!!');
+      startSocNewLoc();
+    }
+
+    socket.on('location', function(loc) {
+      console.log('Updating location to: ', loc);
+      newLocation = loc;
+      console.log('New location: ', newLocation);
+    });
+
+  });
+};
+
+startSocket();
 
 
 app.post('/search', function(req, res) {
