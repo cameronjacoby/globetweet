@@ -36,12 +36,10 @@ var coord4 = '37.8';
 var loc = [coord1, coord2, coord3, coord4];
 
 io.sockets.on('connection', function (socket) {
-  console.log('Connected');
-
-  var stream = T.stream('statuses/filter', {locations: loc});
-
+  console.log('CONNECTED');
+  var stream  = T.stream("statuses/filter", {locations: loc});
   stream.on('tweet', function (tweet) {
-    io.sockets.emit('stream', tweet.text);
+    io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
   });
 });
 

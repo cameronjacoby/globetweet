@@ -38,11 +38,6 @@
         geocoder.query('<%= location %>' || 'San Francisco', showMap);
       });
 
-      var socket = io.connect('http://localhost:3000');
-        socket.on('stream', function(tweet) {
-        $('#tweetd').append(tweet+'<br>');
-      });
-
     </script>
 
   </body>
