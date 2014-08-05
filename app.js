@@ -9,11 +9,6 @@ var express = require('express'),
   config = require('./config/config.js');
 
 
-server.listen(3000, function(){
-  console.log('server started on localhost:3000');
-});
-
-
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -60,6 +55,11 @@ app.post('/search', function(req, res) {
 app.get('/*', function(req, res) {
   res.status(404);
   res.render('site/404');
+});
+
+
+server.listen(3000, function(){
+  console.log('server started on localhost:3000');
 });
 
 
