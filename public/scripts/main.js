@@ -3,10 +3,15 @@ var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
   map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki');
 
 function showMap(err, data) {
+
+  var count = 0;
   
   var socket = io.connect('http://localhost:3000');
-    socket.on('stream', function(tweet) {
-    $('#tweetd').append('<p><img src="' + tweet.user.profile_image_url + '" />' + tweet.user.screen_name + ': ' + tweet.text +'<p>');
+  socket.on('stream', function(tweet) {
+    count += 1;
+    console.log(count);
+    $('#tweetd').prepend('<div id="' + count + '"><img src="' + tweet.user.profile_image_url + '" />' + tweet.user.screen_name + ': ' + tweet.text +'</div>');
+    $('#counter').html(count);
   });
 
   // The geocoder can return an area, like a city, or a

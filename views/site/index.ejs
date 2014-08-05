@@ -10,22 +10,20 @@
   </head>
   <body>
 
-    <h1>GlobeTweet</h1>
+    <div id="content">     
+      <h1>GlobeTweet</h1>
 
-    <form method="post" action="/search">
-      <p><label for="location">Location</label></p>
-      <p><input type="text" name="location" id="location" placeholder="Location"></p>
-      <p><input type="submit"></p>
-    </form>
+      <form method="post" action="/search">
+        <p><label for="location">Search a Location:</label><p>
+        <p><input type="text" name="location" id="location" placeholder="Type any city, state, or country"></p>
+        <p><input type="submit"></p>
+      </form>
 
-    <div id="loc">
-      <p>Searched Location:</p>
-      <p><strong><%= location %></strong></p>
+      <h3>Currently Viewing: <div id="counter"></div> Tweets about <%= location %></h3>
+      <div id="tweetd"></div>
+      <div id="message"></div>
     </div>
 
-    <h2>Tweet Stream</h2>
-    <div id="tweetd"></div>
-  
     <div id="map"></div>
 
     <script src="scripts/main.js"></script>

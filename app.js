@@ -8,9 +8,11 @@ var express = require('express'),
   io = require('socket.io').listen(server),
   config = require('./config/config.js');
 
+
 server.listen(3000, function(){
   console.log('server started on localhost:3000');
 });
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -25,13 +27,17 @@ var T = new Twitter({
 });
 
 
+var currLoc = 'San Francisco';
+var prevLoc;
+
+
 io.sockets.on('connection', function (socket) {
   console.log('connected');
 });
 
 
 app.get('/', function(req, res) {
-  T.track('San Francisco');
+  T.track(currLoc);
   T.on('tweet', function (tweet) {
     console.log('tweet received', tweet);
     io.sockets.emit('stream', tweet);
@@ -43,8 +49,10 @@ app.get('/', function(req, res) {
 app.post('/search', function(req, res) {
   var location = req.body.location;
   console.log(location);
-  T.untrack('San Francisco');
-  T.track(location);
+  prevLoc = currLoc;
+  currLoc = location;
+  T.untrack(prevLoc);
+  T.track(currLoc);
   res.render('site/index', {location: location});
 });
 

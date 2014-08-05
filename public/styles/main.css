@@ -3,35 +3,43 @@ body {
   padding: 0;
 }
 
-h1, p {
+#content {
+  width: 27%;
+  height: 700px;
+  overflow: scroll;
   margin-left: 20px;
 }
 
-form, #loc {
+form {
   margin-top: 20px;
-  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
-#map {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 80%;
+#location {
+  width: 200px;
 }
 
-h2 {
-  margin-left: 20px;
-  color: blue;
-}
-
-#tweetd {
-  margin-left: 20px;
-  width: 15%;
-  color: blue;
+#counter {
+  display: inline;
 }
 
 #tweetd img {
   margin-right: 10px;
   border-radius: 50px;
 }
+
+#tweetd div {
+  margin-bottom: 20px;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+}
+
+
+
+
