@@ -2,8 +2,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiY2FtZXJvbmphY29ieSIsImEiOiI1RnVTdEUwIn0.pImME
 var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
   map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki');
 
-function showMap(err, data) {
-  
+function showMap(err, data) { 
   var count = 0;
   
   var socket = io.connect('http://localhost:3000');
