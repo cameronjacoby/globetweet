@@ -4,7 +4,7 @@ var express = require('express'),
   server = http.createServer(app),
   ejs = require('ejs'),
   bodyParser = require('body-parser'),
-  Twit = require('twit'),
+  Twitter = require('node-tweet-stream'),
   io = require('socket.io').listen(server),
   config = require('./config/config.js');
 
@@ -17,71 +17,34 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.get('/', function(req, res) {
-  res.render('site/index', {location: ''});
-});
-
-
-var T = new Twit({
+var T = new Twitter({
   consumer_key: config.twitter.consumer_key,
   consumer_secret: config.twitter.consumer_secret,
-  access_token: config.twitter.access_token,
-  access_token_secret: config.twitter.access_token_secret
+  token: config.twitter.access_token,
+  token_secret: config.twitter.access_token_secret
 });
 
-var coord1 = '-122.75';
-var coord2 = '36.8';
-var coord3 = '-121.75';
-var coord4 = '37.8';
-var loc = [coord1, coord2, coord3, coord4];
-var newLocation = null;
-var stream;
+
+io.sockets.on('connection', function (socket) {
+  console.log('connected');
+});
 
 
-var startSocNewLoc = function() {
-  io.sockets.on('connection', function (socket) {
-    console.log('CONNECTED');
-    stream = T.stream("statuses/filter", {locations: newLocation});
-    stream.on('tweet', function (tweet) {
-      io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
-    });
+app.get('/', function(req, res) {
+  T.track('San Francisco');
+  T.on('tweet', function (tweet) {
+    console.log('tweet received', tweet);
+    io.sockets.emit('stream', tweet);
   });
-};
-
-
-var startSocket = function() {
-
-  io.sockets.on('connection', function (socket) {
-    console.log('CONNECTED');
-
-    if (newLocation === null) {
-
-      stream = T.stream("statuses/filter", {locations: loc});
-      stream.on('tweet', function (tweet) {
-        io.sockets.emit('stream', tweet.text + ":::::" + tweet.place.full_name);
-      });
-
-    } else {
-      socket.disconnect();
-      console.log('STOPPED!!!');
-      startSocNewLoc();
-    }
-
-    socket.on('location', function(loc) {
-      console.log('Updating location to: ', loc);
-      newLocation = loc;
-      console.log('New location: ', newLocation);
-    });
-
-  });
-};
-
-startSocket();
+  res.render('site/index', {location: 'San Francisco'});
+});
 
 
 app.post('/search', function(req, res) {
   var location = req.body.location;
   console.log(location);
+  T.untrack('San Francisco');
+  T.track(location);
   res.render('site/index', {location: location});
 });
 

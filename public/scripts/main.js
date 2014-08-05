@@ -6,7 +6,7 @@ function showMap(err, data) {
   
   var socket = io.connect('http://localhost:3000');
     socket.on('stream', function(tweet) {
-    $('#tweetd').append(tweet+'<br>');
+    $('#tweetd').append('<p><img src="' + tweet.user.profile_image_url + '" />' + tweet.user.screen_name + ': ' + tweet.text +'<p>');
   });
 
   // The geocoder can return an area, like a city, or a
@@ -20,12 +20,11 @@ function showMap(err, data) {
     var coord4 = data.lbounds._northEast.lat;
     console.log('coordinates:');
     console.log(coord1, coord2, coord3, coord4);
-    socket.emit('location', {loc: [coord1, coord2, coord3, coord4]});
 
   } else if (data.latlng) {
     map.setView([data.latlng[0], data.latlng[1]], 13);
     console.log('latlng data:');
     console.log(data.latlng);
   }
-  
+
 }

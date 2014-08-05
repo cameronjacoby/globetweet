@@ -30,3 +30,8 @@ h2 {
   width: 15%;
   color: blue;
 }
+
+#tweetd img {
+  margin-right: 10px;
+  border-radius: 50px;
+}
