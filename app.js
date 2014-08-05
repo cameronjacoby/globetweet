@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({
   secret: 'thisismysecretkey', // generate a random hash
   name: 'cookie created by cameron',
-  // 6 mins
+  // max age is 6 mins
   maxage: 360000
 }));
 
@@ -31,6 +31,26 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+
+// prepare serialize (grab user id)
+passport.serializeUser(function(user, done) {
+  console.log('serialize just ran');
+  done(null, user.id);
+});
+
+
+// deserialize (check if user id is in the db)
+passport.deserializeUser(function(id, done) {
+  console.log('deserialize just ran');
+  db.user.find({
+    where: {
+      id: id
+    }
+  }).done(function(error, user) {
+    done(error, user);
+  });
+});
 
 
 // set up Twitter keys
@@ -43,7 +63,7 @@ var T = new Twitter({
 
 
 // global variables for search locs
-var currLoc = 'San Francisco';
+var currLoc;
 var prevLoc;
 
 
@@ -54,23 +74,29 @@ io.sockets.on('connection', function (socket) {
 
 
 // root route automatically tracks tweets from currLoc
-// initial currLoc is hard-coded
+// initial currLoc is user's defaultLoc if logged in
 // opens up stream with Twitter
-// renders index.ejs
 app.get('/', function(req, res) {
+  if (!req.user) {
+    currLoc = 'San Francisco';
+  }
+  else {
+    currLoc = req.user.defaultLoc;
+  }
+
   T.track(currLoc);
+  console.log(currLoc);
   T.on('tweet', function (tweet) {
     console.log('tweet received', tweet);
     io.sockets.emit('stream', tweet);
   });
-  res.render('site/index', {location: 'San Francisco'});
+  res.render('site/index', {location: currLoc});
 });
 
 
 // when user searches a new loc
 // currLoc becomes prevLoc; currLoc set to new (searched) loc
 // untrack prevLoc & start tracking currLoc
-// renders index.ejs
 app.post('/search', function(req, res) {
   var location = req.body.location;
   console.log(location);
@@ -79,6 +105,26 @@ app.post('/search', function(req, res) {
   T.untrack(prevLoc);
   T.track(currLoc);
   res.render('site/index', {location: location});
+});
+
+
+app.get('/signup', function(req, res) {
+  if (!req.user) {
+    res.render('site/signup', {username: ''});
+  }
+  else {
+    res.redirect('/');
+  }
+});
+
+
+app.get('/login', function(req, res) {
+  if (!req.user) {
+    res.render('site/login', {username: '', message: req.flash('loginMessage')});
+  }
+  else {
+    res.redirect('/');
+  }
 });
 
 
