@@ -62,9 +62,8 @@ var T = new Twitter({
 });
 
 
-// global variables for search locs
+// set variable for tracked location
 var currLoc;
-var prevLoc;
 
 
 // turn on the socket
@@ -89,7 +88,7 @@ app.get('/', function(req, res) {
     currLoc = req.user.defaultLoc;
   }
 
-  console.log(currLoc);
+  console.log('tracking:', currLoc);
   T.track(currLoc);
  
   res.render('site/index', {location: currLoc,
@@ -104,10 +103,10 @@ app.get('/', function(req, res) {
 // untrack prevLoc & start tracking currLoc
 app.post('/search', function(req, res) {
   var location = req.body.location;
-  console.log('searched location', location);
-  prevLoc = currLoc;
+  console.log('untracking:', currLoc);
+  T.untrack(currLoc);
   currLoc = location;
-  T.untrack(prevLoc);
+  console.log('tracking:', currLoc);
   T.track(currLoc);
   res.render('site/index', {location: location, isAuthenticated: req.isAuthenticated(),
     user: req.user});
