@@ -6,7 +6,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   Twitter = require('node-tweet-stream'),
   io = require('socket.io').listen(server),
-  config = require('./config/config.js'),
+  // config = require('./config/config.js'),
   passport = require('passport'),
   passportLocal = require('passport-local'),
   cookieParser = require('cookie-parser'),
@@ -55,10 +55,10 @@ passport.deserializeUser(function(id, done) {
 
 // set up Twitter keys
 var T = new Twitter({
-  consumer_key: config.twitter.consumer_key,
-  consumer_secret: config.twitter.consumer_secret,
-  token: config.twitter.access_token,
-  token_secret: config.twitter.access_token_secret
+  consumer_key: process.env.TWIITER_KEY,
+  consumer_secret: process.env.TWITTER_SECRET,
+  token: process.env.TWITTER_TOKEN,
+  token_secret: process.env.TWITTER_TOKEN_SECRET
 });
 
 
