@@ -27,9 +27,15 @@
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="/">Home</a></li>
-          <li><a href="/signup">Sign Up</a></li>
-          <li><a href="/login">Log In</a></li>
-          <li><a href="/logout">Log Out</a></li>
+
+          <% if (!isAuthenticated) { %>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/login">Log In</a></li>
+          <% } else { %>
+            <li><a href="/"><%= user.username %></a></li>
+            <li><a href="/logout">Log Out</a></li>
+          <% } %>
+
         </ul>
       </div>
     </nav>
