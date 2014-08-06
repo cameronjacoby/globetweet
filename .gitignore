@@ -1,4 +1,4 @@
 node_modules
-config
+config/config.js
 *.DS_Store
 sample_tweet.txt
