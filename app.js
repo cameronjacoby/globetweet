@@ -90,7 +90,10 @@ app.get('/', function(req, res) {
     console.log('tweet received', tweet);
     io.sockets.emit('stream', tweet);
   });
-  res.render('site/index', {location: currLoc});
+  res.render('site/index', {location: currLoc,
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user
+  });
 });
 
 
@@ -118,6 +121,16 @@ app.get('/signup', function(req, res) {
 });
 
 
+app.get('/login', function(req, res) {
+  if (!req.user) {
+    res.render('site/login', {username: '', message: req.flash('loginMessage')});
+  }
+  else {
+    res.redirect('/');
+  }
+});
+
+
 app.post('/signup', function(req, res) {
   newUsername = req.body.username;
   newPassword = req.body.password;
@@ -134,13 +147,16 @@ app.post('/signup', function(req, res) {
 });
 
 
-app.get('/login', function(req, res) {
-  if (!req.user) {
-    res.render('site/login', {username: '', message: req.flash('loginMessage')});
-  }
-  else {
-    res.redirect('/');
-  }
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}));
+
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 
