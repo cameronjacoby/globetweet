@@ -23,7 +23,49 @@
 
     <div class="container" id="page-content">
       <h1>Sign Up</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <p style="color: red;">
+          <%= message %>
+        </p>
+      <% } %>
+
+      <form method="post" action="/signup">
+        <p>
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" placeholder="Username" value="<%= username %>" autofocus>
+        </p>
+       
+        <p>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Password">
+        </p>
+
+        <p>
+          <input type="submit" value="Sign up!">
+        </p>
+      </form>
+
+      <p><a href="/login">Already have an account? Log in here.</a></p>
       
     </div>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,6 +23,12 @@
 
     <div class="container" id="page-content">
       <h1>Log In</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <p style="color: red;">
+          <%= message %>
+        </p>
+      <% } %>
       
     </div>
   </body>
