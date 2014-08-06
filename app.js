@@ -108,7 +108,8 @@ app.post('/search', function(req, res) {
   currLoc = location;
   T.untrack(prevLoc);
   T.track(currLoc);
-  res.render('site/index', {location: location});
+  res.render('site/index', {location: location, isAuthenticated: req.isAuthenticated(),
+    user: req.user});
 });
 
 
@@ -164,7 +165,8 @@ app.get('/logout', function(req, res) {
 // render 404 page when any other URL attempted
 app.get('/*', function(req, res) {
   res.status(404);
-  res.render('site/404');
+  res.render('site/404', {isAuthenticated: req.isAuthenticated(),
+    user: req.user});
 });
 
 
