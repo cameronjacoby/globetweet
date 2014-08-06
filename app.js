@@ -68,30 +68,30 @@ var prevLoc;
 
 
 // turn on the socket
-// io.sockets.on('connection', function (socket) {
-//   console.log('connected');
-// });
+io.sockets.on('connection', function (socket) {
+  console.log('connected');
+});
 
 
 // root route automatically tracks tweets from currLoc
 // initial currLoc is user's defaultLoc if logged in
 // opens up stream with Twitter
-// app.get('/', function(req, res) {
-//   if (!req.user) {
-//     currLoc = 'San Francisco';
-//   }
-//   else {
-//     currLoc = req.user.defaultLoc;
-//   }
+app.get('/', function(req, res) {
+  if (!req.user) {
+    currLoc = 'San Francisco';
+  }
+  else {
+    currLoc = req.user.defaultLoc;
+  }
 
-//   T.track(currLoc);
-//   console.log(currLoc);
-//   T.on('tweet', function (tweet) {
-//     console.log('tweet received', tweet);
-//     io.sockets.emit('stream', tweet);
-//   });
-//   res.render('site/index', {location: currLoc});
-// });
+  T.track(currLoc);
+  console.log(currLoc);
+  T.on('tweet', function (tweet) {
+    console.log('tweet received', tweet);
+    io.sockets.emit('stream', tweet);
+  });
+  res.render('site/index', {location: currLoc});
+});
 
 
 // when user searches a new loc
@@ -121,8 +121,6 @@ app.get('/signup', function(req, res) {
 app.post('/signup', function(req, res) {
   newUsername = req.body.username;
   newPassword = req.body.password;
-  
-
 
   db.user.createNewUser(newUsername, newPassword,
     function(err) {

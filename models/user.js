@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
         // encrypt a password
         encryptPass: function(password) {
           var hash = bcrypt.hashSync(password, salt);
-          return hash
+          return hash;
         },
         // compare a password
         comparePass: function(userpass, dbpass) {
@@ -43,11 +43,8 @@ module.exports = function(sequelize, DataTypes) {
           else {
             User.create({
               username: username,
-              // password: password
               password: User.encryptPass(password)
             }).error(function(error) {
-              console.log("IS THERE AN ERROR? IF THERE IS IT IS BELOW HERE");
-              console.log(error);
               if (error.username) {
                 err({message: 'Your username should be at least 6 characters.'});
               }
