@@ -22,37 +22,38 @@
     </nav>
 
     <div class="container" id="page-content">
-      <h1>Sign Up</h1>
+      <div class="col-xs-6">
+        <h1>Sign Up</h1>
 
-      <% if (typeof message !== 'undefined') { %>
-        <p style="color: red;">
-          <%= message %>
-        </p>
-      <% } %>
+        <% if (typeof message !== 'undefined') { %>
+          <p class="message">
+            <%= message %>
+          </p>
+        <% } %>
 
-      <form method="post" action="/signup">
-        <p>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" placeholder="Username" value="<%= username %>" autofocus>
-        </p>
+        <form role="form" class="sign-log" method="post" action="/signup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Type your username" value="<%= username %>" autofocus>
+          </div>
+          <div class="form-group">
+            <label for="default-loc">Default Location</label>
+            <input type="text" name="defaultLoc" class="form-control" id="default-loc" placeholder="This location will load each time you visit the site" value="<%= defaultLoc %>">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Type your password">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-default" value="Sign up!">
+          </div>
+        </form>
 
-        <p>
-          <label for="default-loc">Default Location</label>
-          <input type="text" name="defaultLoc" id="default-loc" placeholder="Default Location" value="<%= defaultLoc %>">
-        </p>
-       
-        <p>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Password">
-        </p>
+        <p><a href="/login">Already have an account? Log in here.</a></p>
+      </div>
 
-        <p>
-          <input type="submit" value="Sign up!">
-        </p>
-      </form>
+      <div class="col-xs-6"></div>
 
-      <p><a href="/login">Already have an account? Log in here.</a></p>
-      
     </div>
   </body>
 </html>

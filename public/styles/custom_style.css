@@ -13,6 +13,15 @@ form {
   margin-bottom: 30px;
 }
 
+.sign-log {
+  margin-top: 30px;
+}
+
+.message {
+  margin-top: 20px;
+  color: red;
+}
+
 h3 {
   margin-bottom: 20px;
 }
