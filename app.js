@@ -121,10 +121,11 @@ app.get('/signup', function(req, res) {
 app.post('/signup', function(req, res) {
   newUsername = req.body.username;
   newPassword = req.body.password;
+  defaultLoc = req.body.defaultLoc;
 
-  db.user.createNewUser(newUsername, newPassword,
+  db.user.createNewUser(newUsername, newPassword, defaultLoc,
     function(err) {
-      res.render('site/signup', {message: err.message, username: newUsername});
+      res.render('site/signup', {message: err.message, username: newUsername, defaultLoc: defaultLoc});
     },
     function(success) {
       res.render('site/login', {message: success.message});

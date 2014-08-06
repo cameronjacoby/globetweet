@@ -36,14 +36,15 @@ module.exports = function(sequelize, DataTypes) {
           return bcrypt.compareSync(userpass, dbpass);
         },
         // create a new user
-        createNewUser: function(username, password, err, success) {
+        createNewUser: function(username, password, defaultLoc, err, success) {
           if (password.length < 6) {
             err({message: 'Your password should be more than 6 characters.'});
           }
           else {
             User.create({
               username: username,
-              password: User.encryptPass(password)
+              password: User.encryptPass(password),
+              defaultLoc: defaultLoc
             }).error(function(error) {
               if (error.username) {
                 err({message: 'Your username should be at least 6 characters.'});
