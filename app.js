@@ -72,6 +72,10 @@ io.sockets.on('connection', function (socket) {
   console.log('connected');
 });
 
+T.on('tweet', function (tweet) {
+  console.log('tweet received', tweet);
+  io.sockets.emit('stream', tweet);
+});
 
 // root route automatically tracks tweets from currLoc
 // initial currLoc is user's defaultLoc if logged in
@@ -87,10 +91,7 @@ app.get('/', function(req, res) {
 
   console.log(currLoc);
   T.track(currLoc);
-  T.on('tweet', function (tweet) {
-    console.log('tweet received', tweet);
-    io.sockets.emit('stream', tweet);
-  });
+ 
   res.render('site/index', {location: currLoc,
     isAuthenticated: req.isAuthenticated(),
     user: req.user
@@ -103,7 +104,7 @@ app.get('/', function(req, res) {
 // untrack prevLoc & start tracking currLoc
 app.post('/search', function(req, res) {
   var location = req.body.location;
-  console.log(location);
+  console.log('searched location', location);
   prevLoc = currLoc;
   currLoc = location;
   T.untrack(prevLoc);

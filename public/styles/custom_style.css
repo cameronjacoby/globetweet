@@ -45,6 +45,12 @@ h3 {
   height: 700px;
 }
 
+.clr:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
 
 
 

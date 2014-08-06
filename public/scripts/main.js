@@ -9,7 +9,7 @@ function showMap(err, data) {
   socket.on('stream', function(tweet) {
     count += 1;
     console.log(count);
-    $('#tweetd').prepend('<div id="' + count + '"><img src="' + tweet.user.profile_image_url + '" />' + tweet.user.screen_name + ': ' + tweet.text +'</div>');
+    $('#tweetd').prepend('<div class="clearfix" id="' + count + '"><img src="' + tweet.user.profile_image_url + '" /><strong>' + tweet.user.screen_name + ':</strong> ' + tweet.text +'</div>');
     $('#counter').html(count);
   });
 
