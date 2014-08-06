@@ -86,7 +86,7 @@ module.exports = function(sequelize, DataTypes) {
         return done(null, false, req.flash('loginMessage', 'Username does not exist.'));
       }
       if (User.comparePass(password, user.password) !== true) {
-        return done(null, false, req.flash('loginMessage', 'Invalid password.'));
+        return done(null, false, req.flash('loginMessage', 'Invalid password. Please try again.'));
       }
       done(null, user);
     });

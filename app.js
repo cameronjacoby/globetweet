@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({
   secret: 'thisismysecretkey', // generate a random hash
   name: 'cookie created by cameron',
-  // max age is 6 mins
-  maxage: 360000
+  // keep user logged in for one week
+  maxage: 604800000
 }));
 
 
@@ -77,6 +77,7 @@ io.sockets.on('connection', function (socket) {
 // initial currLoc is user's defaultLoc if logged in
 // opens up stream with Twitter
 app.get('/', function(req, res) {
+
   if (!req.user) {
     currLoc = 'San Francisco';
   }
@@ -84,8 +85,8 @@ app.get('/', function(req, res) {
     currLoc = req.user.defaultLoc;
   }
 
-  T.track(currLoc);
   console.log(currLoc);
+  T.track(currLoc);
   T.on('tweet', function (tweet) {
     console.log('tweet received', tweet);
     io.sockets.emit('stream', tweet);
@@ -141,7 +142,7 @@ app.post('/signup', function(req, res) {
       res.render('site/signup', {message: err.message, username: newUsername, defaultLoc: defaultLoc});
     },
     function(success) {
-      res.render('site/login', {message: success.message});
+      res.render('site/login', {message: success.message, username: newUsername});
     }
   );
 });
