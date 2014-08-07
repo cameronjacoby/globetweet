@@ -1,5 +1,5 @@
 #page-content {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 #left-scroll {
@@ -22,8 +22,12 @@ form {
   color: red;
 }
 
-h3 {
+h4 {
   margin-bottom: 20px;
+}
+
+#tweet-count {
+  display: none;
 }
 
 #counter {

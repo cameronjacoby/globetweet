@@ -1,4 +1,5 @@
 
+// render map
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2FtZXJvbmphY29ieSIsImEiOiI1RnVTdEUwIn0.pImMEyK7Ziab2QE7N-TK0A';
 var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
   .setView([0, 0], 2);
@@ -6,27 +7,32 @@ var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
 
 // receive data from socket
 var socket = io(),
+  tweetArr = [];
   tweetDiv = $('#tweetd'),
+  count = 0,
   counter = $('#counter'),
-  count = 0;
+  tweetCount = $('#tweet-count'),
+  loadMessage = $('#load-msg');
 
 socket.on('receive_tweets', function(tweets) {
-  tweets.forEach(function(tweet, index) {
-    count += 1;
-    counter.html(count);
-    tweetDiv.prepend('<div class=clearfix>' + '<img src="'
-      + tweet.user.profile_image_url + '" > <strong>'
-      + tweet.user.screen_name + ':</strong> ' + tweet.text
-      + tweet.coordinates.coordinates[0] + ', '
-      + tweet.coordinates.coordinates[1] + '</div>');
+  tweets.forEach(function(tweet) {
+
+    tweetArr.push(tweet);
+
+  });
+});
+
+setTimeout(function() {
+
+  (function streamTweet() {
 
     L.mapbox.featureLayer({
       type: 'Feature',
       geometry: {
         type: 'Point',
         coordinates: [
-          tweet.coordinates.coordinates[0],
-          tweet.coordinates.coordinates[1]
+          tweetArr[count].coordinates.coordinates[0],
+          tweetArr[count].coordinates.coordinates[1]
         ]
       },
       properties: {
@@ -37,11 +43,29 @@ socket.on('receive_tweets', function(tweets) {
         'marker-symbol': 'cafe'
       }
     }).addTo(map);
-    setTimeout(function() {
-      console.log('hello');
-    }, 5000);
-  });
-});
+
+    tweetDiv.prepend('<div class="clr" id="' + (count) + '"><img src="'
+      + tweetArr[count].user.profile_image_url + '" > <strong>'
+      + tweetArr[count].user.screen_name + ':</strong> ' + tweetArr[count].text
+      + tweetArr[count].coordinates.coordinates[0] + ', '
+      + tweetArr[count].coordinates.coordinates[1] + '</div>');
+
+    count += 1;
+    counter.html(count);
+
+    if (count > 0) {
+      loadMessage.hide();
+      tweetCount.show();
+    }
+
+    if (count === 20) {
+      return;
+    }
+
+    setTimeout(streamTweet, 1000);
+  })();
+
+}, 2000);
 
 
 

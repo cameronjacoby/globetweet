@@ -42,7 +42,7 @@
 
         <form role="form" method="post" action="/search">
           <div class="form-group">
-            <label for="location"><h2>Search a Location</h2></label>
+            <label for="location"><h2>Search for Tweets</h2></label>
           </div>
           <div class="form-group">
             <input type="text" name="location" class="form-control" id="location" placeholder="Type any city, state, or country" autofocus>
@@ -53,7 +53,9 @@
           
         </form>
 
-        <h3>Currently Viewing <div id="counter"></div> Tweets about <%= location %></h3>
+        <h4><div id="tweet-count">Tweets about <%= location %>: <div id="counter"></div></div></h4>
+
+        <h4><div id="load-msg">Fetching tweets from Twitter...</div></h4>
 
         <div id="tweetd"></div>
 
