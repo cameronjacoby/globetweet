@@ -5,7 +5,8 @@ var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
   .setView([0, 0], 2);
 
 
-var socket = io(),
+var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
+  socket = io(),
   tweetArr = [];
   tweetDiv = $('#tweetd'),
   count = 0,
@@ -22,47 +23,48 @@ socket.on('receive_tweets', function(tweets) {
     tweetArr.push(tweet);
 
   });
-}); // add callback here instead of setTimeout below
+});
+
+
+// function to show markers on map
+var showMarker = function(lng, lat) {
+  L.mapbox.featureLayer({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        lng,
+        lat
+      ]
+    },
+    properties: {
+      description: tweetArr[count].user.screen_name + ': ' + tweetArr[count].text,
+      'marker-size': 'medium',
+      'marker-color': '#FC4607',
+      'marker-symbol': 'star'
+    }
+  }).addTo(map);
+};
 
 
 setTimeout(function() {
 
   (function streamTweet() {
 
-    var lng;
-    var lat;
-
     if (tweetArr[count].geo) {
-      lng = tweetArr[count].geo.coordinates[1];
-      lat = tweetArr[count].geo.coordinates[0];
-      console.log('COORDINATES!!!');
-      console.log(tweetArr[count].place.full_name);
-    } else {
-      lng = 0;
-      lat = -50;
-      console.log('NULL!!!');
+      showMarker(tweetArr[count].geo.coordinates[1], tweetArr[count].geo.coordinates[0]);
     }
 
-    L.mapbox.featureLayer({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-
-        coordinates: [
-          lng,
-          lat
-        ]
-
-      },
-      properties: {
-        title: tweetArr[count].user.screen_name,
-        // change to name of place
-        description: tweetArr[count].text,
-        'marker-size': 'medium',
-        'marker-color': '#FC4607',
-        'marker-symbol': 'star'
-      }
-    }).addTo(map);
+    else if (tweetArr[count].user.location) {
+      geocoder.query(tweetArr[count].user.location, function(err, result) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          showMarker(result.latlng[1], result.latlng[0]);
+        }
+      });
+    }
 
     tweetDiv.prepend('<div class="clr"><img src="'
       + tweetArr[count].user.profile_image_url + '" > <strong>'
@@ -87,7 +89,7 @@ setTimeout(function() {
     setTimeout(streamTweet, 1000);
   })();
 
-}, 2000);
+}, 6000);
 
 
 
