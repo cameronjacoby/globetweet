@@ -4,14 +4,15 @@ var express = require('express'),
   io = require('socket.io').listen(server),
   ejs = require('ejs'),
   bodyParser = require('body-parser'),
-  Twitter = require('node-tweet-stream'),
+  // Twitter = require('node-tweet-stream'),
   passport = require('passport'),
   passportLocal = require('passport-local'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
   flash = require('connect-flash'),
-  db = require('./models/index'),
-  tweets = require('./tweets.json');
+  db = require('./models/index');
+  // var tweets = require('./tweets.json');
+  var OAuth = require('oauth');
 
 
 app.set('view engine', 'ejs');
@@ -53,16 +54,28 @@ passport.deserializeUser(function(id, done) {
 
 
 // set up Twitter keys
-var T = new Twitter({
-  consumer_key: process.env.TWIITER_KEY,
-  consumer_secret: process.env.TWITTER_SECRET,
-  token: process.env.TWITTER_TOKEN,
-  token_secret: process.env.TWITTER_TOKEN_SECRET
-});
+// var T = new Twitter({
+//   consumer_key: process.env.TWIITER_KEY,
+//   consumer_secret: process.env.TWITTER_SECRET,
+//   token: process.env.TWITTER_TOKEN,
+//   token_secret: process.env.TWITTER_TOKEN_SECRET
+// });
+
+
+var oauth = new OAuth.OAuth(
+  'https://api.twitter.com/oauth/request_token',
+  'https://api.twitter.com/oauth/access_token',
+  process.env.TWITTER_KEY,
+  process.env.TWITTER_SECRET,
+  '1.0A',
+  null,
+  'HMAC-SHA1'
+);
 
 
 // set variable for searched keyword
 var searchKey;
+var searchURL;
 
 
 // // turn on the socket
@@ -100,12 +113,17 @@ app.get('/', function(req, res) {
 // connect to socket
 // pass sample tweets to client side
 io.on('connection', function(socket) {
-  console.log('a user connected');
+  console.log('user connected');
+  searchKey = 'San Francisco';
+  console.log(searchKey);
+  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  console.log(searchURL);
 
-  // connect to twitter api here -->
+  oauth.get(searchURL, null, null, function(e, data, res) {
+    var tweets = JSON.parse(data).statuses;
     io.sockets.emit('receive_tweets', tweets);
     console.log(tweets);
-  //////
+  });
 
   socket.on('disconnect', function() {
     console.log('user disconnected');

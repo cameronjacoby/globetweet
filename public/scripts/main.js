@@ -12,7 +12,8 @@ var socket = io(),
   count = 0,
   counter = $('#counter'),
   tweetCount = $('#tweet-count'),
-  loadMessage = $('#load-msg');
+  loadMessage = $('#load-msg'),
+
 
 socket.on('receive_tweets', function(tweets) {
   tweets.forEach(function(tweet) {
@@ -22,18 +23,42 @@ socket.on('receive_tweets', function(tweets) {
   });
 }); // add callback here instead of setTimeout below
 
+// coordinates: [
+//   tweetArr[count].geo.coordinates[1],
+//   tweetArr[count].geo.coordinates[0]
+// ]
+
 setTimeout(function() {
+  var lng;
+  var lat;
 
   (function streamTweet() {
+
+    if (tweetArr[count].geo) {
+      lng = tweetArr[count].geo.coordinates[1];
+      lat = tweetArr[count].geo.coordinates[0];
+      console.log('COORDINATES!!!');
+    } else {
+      lng = 0;
+      lat = -50;
+      console.log('NULL!!!');
+    }
+
+    if (tweetArr[count].place) {
+      console.log(tweetArr[count].place);
+    }
 
     L.mapbox.featureLayer({
       type: 'Feature',
       geometry: {
         type: 'Point',
+
         coordinates: [
-          tweetArr[count].coordinates.coordinates[0],
-          tweetArr[count].coordinates.coordinates[1]
+          lng,
+          lat
         ]
+          // tweetArr[count].coordinates.coordinates[0],
+          // tweetArr[count].coordinates.coordinates[1]
       },
       properties: {
         title: tweetArr[count].user.screen_name,
@@ -60,7 +85,7 @@ setTimeout(function() {
       tweetCount.show();
     }
 
-    if (count === 20) {
+    if (count === 100) {
       return;
     }
 
