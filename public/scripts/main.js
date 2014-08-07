@@ -20,7 +20,7 @@ socket.on('receive_tweets', function(tweets) {
     tweetArr.push(tweet);
 
   });
-});
+}); // add callback here instead of setTimeout below
 
 setTimeout(function() {
 
@@ -36,19 +36,21 @@ setTimeout(function() {
         ]
       },
       properties: {
-        title: 'Peregrine Espresso',
-        description: '1718 14th St NW, Washington, DC',
-        'marker-size': 'large',
-        'marker-color': '#BE9A6B',
-        'marker-symbol': 'cafe'
+        title: tweetArr[count].user.screen_name,
+        // change to name of place
+        description: tweetArr[count].text,
+        'marker-size': 'medium',
+        'marker-color': '#FC4607',
+        'marker-symbol': 'star'
       }
     }).addTo(map);
 
-    tweetDiv.prepend('<div class="clr" id="' + (count) + '"><img src="'
+    tweetDiv.prepend('<div class="clr"><img src="'
       + tweetArr[count].user.profile_image_url + '" > <strong>'
-      + tweetArr[count].user.screen_name + ':</strong> ' + tweetArr[count].text
-      + tweetArr[count].coordinates.coordinates[0] + ', '
-      + tweetArr[count].coordinates.coordinates[1] + '</div>');
+      + tweetArr[count].user.screen_name + ':</strong> <a href="http://twitter.com/'
+      + tweetArr[count].user.screen_name + '/status/'
+      + tweetArr[count].id_str + '" target="blank">'
+      + tweetArr[count].text + '</a></div>');
 
     count += 1;
     counter.html(count);
@@ -66,41 +68,6 @@ setTimeout(function() {
   })();
 
 }, 2000);
-
-
-
-// function showMap(err, data) {
-//   var count = 0;
-  
-//   // var socket = io.connect('http://localhost:3000');
-//   // socket.on('stream', function(tweet) {
-//   //   count += 1;
-//   //   console.log(count);
-//   //   $('#tweetd').prepend('<div class="clearfix" id="' + count + '"><img src="' + tweet.user.profile_image_url + '" /><strong>' + tweet.user.screen_name + ':</strong> ' + tweet.text +'</div>');
-//   //   $('#counter').html(count);
-//   // });
-
-//   // The geocoder can return an area, like a city, or a
-//   // point, like an address. Here we handle both cases,
-//   // by fitting the map bounds to an area or zooming to a point.
-//   if (data.lbounds) {
-//     map.fitBounds(data.lbounds);
-//     var coord1 = data.lbounds._southWest.lng;
-//     var coord2 = data.lbounds._southWest.lat;
-//     var coord3 = data.lbounds._northEast.lng;
-//     var coord4 = data.lbounds._northEast.lat;
-//     console.log('coordinates:');
-//     console.log(coord1, coord2, coord3, coord4);
-
-//   } else if (data.latlng) {
-//     map.setView([data.latlng[0], data.latlng[1]], 13);
-//     console.log('latlng data:');
-//     console.log(data.latlng);
-//   }
-
-// }
-
-// showMap();
 
 
 
