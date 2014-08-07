@@ -1,19 +1,19 @@
-
 // render map
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2FtZXJvbmphY29ieSIsImEiOiI1RnVTdEUwIn0.pImMEyK7Ziab2QE7N-TK0A';
 var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
   .setView([0, 0], 2);
 
 
-  var socket = io(),
-  tweetArr = [],
-  count = 0,
-  geocoder = L.mapbox.geocoder('mapbox.places-v1'),
-  tweetDiv = $('#tweetd'),
-  counter = $('#counter'),
-  loadMessage = $('#load-msg'),
-  tweetCount = $('#tweet-count'),
-  doneMessage = $('#done-message');
+// set variables
+var socket = io(),
+tweetArr = [],
+count = 0,
+geocoder = L.mapbox.geocoder('mapbox.places-v1'),
+tweetDiv = $('#tweetd'),
+counter = $('#counter'),
+loadMessage = $('#load-msg'),
+tweetCount = $('#tweet-count'),
+doneMessage = $('#done-message');
 
 
 // function to receive data from socket
