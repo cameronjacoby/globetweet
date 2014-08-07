@@ -5,25 +5,27 @@ var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
   .setView([0, 0], 2);
 
 
-var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
-  socket = io(),
-  tweetArr = [];
-  tweetDiv = $('#tweetd'),
+  var socket = io(),
+  tweetArr = [],
   count = 0,
+  geocoder = L.mapbox.geocoder('mapbox.places-v1'),
+  tweetDiv = $('#tweetd'),
   counter = $('#counter'),
-  tweetCount = $('#tweet-count'),
   loadMessage = $('#load-msg'),
+  tweetCount = $('#tweet-count'),
   doneMessage = $('#done-message');
 
 
-// receive data from socket
-socket.on('receive_tweets', function(tweets) {
-  tweets.forEach(function(tweet) {
-
-    tweetArr.push(tweet);
-
+// function to receive data from socket
+var getTweets = function(callback) {
+  socket.on('receive_tweets', function(tweets) {
+    tweets.forEach(function(tweet) {
+      tweetArr.push(tweet);
+    });
+    console.log(tweetArr);
+    callback();
   });
-});
+};
 
 
 // function to show markers on map
@@ -47,7 +49,8 @@ var showMarker = function(lng, lat) {
 };
 
 
-setTimeout(function() {
+// function to stream tweets & place markers
+var stream = function() {
 
   (function streamTweet() {
 
@@ -88,8 +91,11 @@ setTimeout(function() {
 
     setTimeout(streamTweet, 1000);
   })();
+};
 
-}, 6000);
+
+// call functions
+getTweets(stream);
 
 
 
