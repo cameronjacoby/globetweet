@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    defaultLoc: {
+    defaultSearch: {
       type: DataTypes.STRING
     }
   },
@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
           return bcrypt.compareSync(userpass, dbpass);
         },
         // create a new user
-        createNewUser: function(username, password, defaultLoc, err, success) {
+        createNewUser: function(username, password, defaultSearch, err, success) {
           if (password.length < 6) {
             err({message: 'Your password should be more than 6 characters.'});
           }
@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
             User.create({
               username: username,
               password: User.encryptPass(password),
-              defaultLoc: defaultLoc
+              defaultSearch: defaultSearch
             }).error(function(error) {
               if (error.username) {
                 err({message: 'Your username should be at least 6 characters.'});

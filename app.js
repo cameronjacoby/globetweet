@@ -79,14 +79,14 @@ io.on('connection', function(socket) {
 
 
 // root route automatically tracks tweets from searchKey
-// initial searchKey is user's defaultLoc if logged in
+// initial searchKey is user's defaultSearch if logged in
 app.get('/', function(req, res) {
 
   if (!req.user) {
     searchKey = 'San Francisco';
   }
   else {
-    searchKey = req.user.defaultLoc;
+    searchKey = req.user.defaultSearch;
   }
 
   console.log(searchKey);
@@ -131,7 +131,7 @@ app.post('/search', function(req, res) {
 
 app.get('/signup', function(req, res) {
   if (!req.user) {
-    res.render('site/signup', {username: '', defaultLoc: ''});
+    res.render('site/signup', {username: '', defaultSearch: ''});
   }
   else {
     res.redirect('/');
@@ -152,11 +152,11 @@ app.get('/login', function(req, res) {
 app.post('/signup', function(req, res) {
   newUsername = req.body.username;
   newPassword = req.body.password;
-  defaultLoc = req.body.defaultLoc;
+  defaultSearch = req.body.defaultSearch;
 
-  db.user.createNewUser(newUsername, newPassword, defaultLoc,
+  db.user.createNewUser(newUsername, newPassword, defaultSearch,
     function(err) {
-      res.render('site/signup', {message: err.message, username: newUsername, defaultLoc: defaultLoc});
+      res.render('site/signup', {message: err.message, username: newUsername, defaultSearch: defaultSearch});
     },
     function(success) {
       res.render('site/login', {message: success.message, username: newUsername});
