@@ -10,9 +10,9 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
   flash = require('connect-flash'),
+  OAuth = require('oauth'),
   db = require('./models/index');
   // var tweets = require('./tweets.json');
-  var OAuth = require('oauth');
 
 
 app.set('view engine', 'ejs');
@@ -52,16 +52,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
-// set up Twitter keys
-// var T = new Twitter({
-//   consumer_key: process.env.TWIITER_KEY,
-//   consumer_secret: process.env.TWITTER_SECRET,
-//   token: process.env.TWITTER_TOKEN,
-//   token_secret: process.env.TWITTER_TOKEN_SECRET
-// });
-
-
+// set up oauth
 var oauth = new OAuth.OAuth(
   'https://api.twitter.com/oauth/request_token',
   'https://api.twitter.com/oauth/access_token',
@@ -73,20 +64,19 @@ var oauth = new OAuth.OAuth(
 );
 
 
-// set variable for searched keyword
+// set variables for searched keyword and URL
 var searchKey;
 var searchURL;
 
 
-// // turn on the socket
-// io.sockets.on('connection', function (socket) {
-//   console.log('connected');
-// });
+// connect to socket
+io.on('connection', function(socket) {
+  console.log('user connected');
 
-// T.on('tweet', function (tweet) {
-//   console.log('tweet received', tweet);
-//   io.sockets.emit('stream', tweet);
-// });
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  });
+});
 
 
 // root route automatically tracks tweets from searchKey
@@ -100,21 +90,6 @@ app.get('/', function(req, res) {
     searchKey = req.user.defaultLoc;
   }
 
-  // console.log('tracking:', searchKey);
-  // T.track(searchKey);
- 
-  res.render('site/index', {searchKey: searchKey,
-    isAuthenticated: req.isAuthenticated(),
-    user: req.user
-  });
-});
-
-
-// connect to socket
-// pass sample tweets to client side
-io.on('connection', function(socket) {
-  console.log('user connected');
-  searchKey = 'San Francisco';
   console.log(searchKey);
   searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
   console.log(searchURL);
@@ -122,11 +97,12 @@ io.on('connection', function(socket) {
   oauth.get(searchURL, null, null, function(e, data, res) {
     var tweets = JSON.parse(data).statuses;
     io.sockets.emit('receive_tweets', tweets);
-    console.log(tweets);
+    // console.log(tweets);
   });
-
-  socket.on('disconnect', function() {
-    console.log('user disconnected');
+ 
+  res.render('site/index', {searchKey: searchKey,
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user
   });
 });
 
@@ -137,6 +113,15 @@ app.post('/search', function(req, res) {
 
   var keyword = req.body.keyword;
   searchKey = keyword;
+
+  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  console.log(searchURL);
+
+  oauth.get(searchURL, null, null, function(e, data, res) {
+    var tweets = JSON.parse(data).statuses;
+    io.sockets.emit('receive_tweets', tweets);
+    // console.log(tweets);
+  });
 
   res.render('site/index', {searchKey: searchKey,
     isAuthenticated: req.isAuthenticated(),
