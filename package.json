@@ -32,6 +32,6 @@
     "pg": "^3.4.0",
     "sequelize": "^1.7.9",
     "sequelize-cli": "^0.2.3",
-    "socket.io": "*"
+    "socket.io": "^1.0.6"
   }
 }
