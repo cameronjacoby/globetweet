@@ -5,7 +5,6 @@ var express = require('express'),
   ejs = require('ejs'),
   bodyParser = require('body-parser'),
   Twitter = require('node-tweet-stream'),
-  // config = require('./config/config.js'),
   passport = require('passport'),
   passportLocal = require('passport-local'),
   cookieParser = require('cookie-parser'),
@@ -62,8 +61,8 @@ var T = new Twitter({
 });
 
 
-// set variable for tracked location
-var currLoc;
+// set variable for searched keyword
+var searchKey;
 
 
 // // turn on the socket
@@ -77,29 +76,29 @@ var currLoc;
 // });
 
 
-// root route automatically tracks tweets from currLoc
-// initial currLoc is user's defaultLoc if logged in
-// opens up stream with Twitter
+// root route automatically tracks tweets from searchKey
+// initial searchKey is user's defaultLoc if logged in
 app.get('/', function(req, res) {
 
   if (!req.user) {
-    currLoc = 'San Francisco';
+    searchKey = 'San Francisco';
   }
   else {
-    currLoc = req.user.defaultLoc;
+    searchKey = req.user.defaultLoc;
   }
 
-  // console.log('tracking:', currLoc);
-  // T.track(currLoc);
+  // console.log('tracking:', searchKey);
+  // T.track(searchKey);
  
-  res.render('site/index', {location: currLoc,
+  res.render('site/index', {searchKey: searchKey,
     isAuthenticated: req.isAuthenticated(),
     user: req.user
   });
 });
 
 
-// connect to socket // pass sample tweets to client side
+// connect to socket
+// pass sample tweets to client side
 io.on('connection', function(socket) {
   console.log('a user connected');
 
@@ -114,14 +113,17 @@ io.on('connection', function(socket) {
 });
 
 
-// when user searches a new loc
-// currLoc becomes prevLoc; currLoc set to new (searched) loc
-// untrack prevLoc & start tracking currLoc
+// when user searches new keyword
+// set searchKey to new keyword
 app.post('/search', function(req, res) {
-  var location = req.body.location;
-  currLoc = location;
-  res.render('site/index', {location: location, isAuthenticated: req.isAuthenticated(),
-    user: req.user});
+
+  var keyword = req.body.keyword;
+  searchKey = keyword;
+
+  res.render('site/index', {searchKey: searchKey,
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user
+  });
 });
 
 
