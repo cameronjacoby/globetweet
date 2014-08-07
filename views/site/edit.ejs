@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GlobeTweet | Edit Profile</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/custom_style.css">
+    <link rel="icon" href="">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">GlobeTweet</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/"><%= user.username %></a></li>
+            <li><a href="/logout">Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" id="page-content">
+      <div class="col-xs-6">
+        <h1>Edit Profile</h1>
+
+        <form role="form" class="sign-log" method="post" action="/edit">
+
+          <div class="form-group">
+            <label for="default-loc">Update Your Default Location</label>
+            <input type="text" name="defaultLoc" class="form-control" id="default-loc" placeholder="Type your new default location" value="<%= defaultLoc %>">
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-default" value="Save">
+          </div>
+        </form>
+
+      </div>
+
+      <div class="col-xs-6"></div>
+
+    </div>
+  </body>
+</html>
+
+
+
+

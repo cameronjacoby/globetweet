@@ -1,18 +1,18 @@
 var express = require('express'),
   app = express(),
-  http = require('http'),
-  server = http.createServer(app),
+  server = require('http').createServer(app),
+  io = require('socket.io').listen(server),
   ejs = require('ejs'),
   bodyParser = require('body-parser'),
   Twitter = require('node-tweet-stream'),
-  io = require('socket.io').listen(server),
   // config = require('./config/config.js'),
   passport = require('passport'),
   passportLocal = require('passport-local'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
   flash = require('connect-flash'),
-  db = require('./models/index');
+  db = require('./models/index'),
+  tweets = require('./tweets.json');
 
 
 app.set('view engine', 'ejs');
@@ -66,15 +66,16 @@ var T = new Twitter({
 var currLoc;
 
 
-// turn on the socket
-io.sockets.on('connection', function (socket) {
-  console.log('connected');
-});
+// // turn on the socket
+// io.sockets.on('connection', function (socket) {
+//   console.log('connected');
+// });
 
-T.on('tweet', function (tweet) {
-  console.log('tweet received', tweet);
-  io.sockets.emit('stream', tweet);
-});
+// T.on('tweet', function (tweet) {
+//   console.log('tweet received', tweet);
+//   io.sockets.emit('stream', tweet);
+// });
+
 
 // root route automatically tracks tweets from currLoc
 // initial currLoc is user's defaultLoc if logged in
@@ -88,12 +89,27 @@ app.get('/', function(req, res) {
     currLoc = req.user.defaultLoc;
   }
 
-  console.log('tracking:', currLoc);
-  T.track(currLoc);
+  // console.log('tracking:', currLoc);
+  // T.track(currLoc);
  
   res.render('site/index', {location: currLoc,
     isAuthenticated: req.isAuthenticated(),
     user: req.user
+  });
+});
+
+
+// connect to socket // pass sample tweets to client side
+io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  // connect to twitter api here -->
+    io.sockets.emit('receive_tweets', tweets);
+    console.log(tweets);
+  //////
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
   });
 });
 
@@ -103,11 +119,7 @@ app.get('/', function(req, res) {
 // untrack prevLoc & start tracking currLoc
 app.post('/search', function(req, res) {
   var location = req.body.location;
-  console.log('untracking:', currLoc);
-  T.untrack(currLoc);
   currLoc = location;
-  console.log('tracking:', currLoc);
-  T.track(currLoc);
   res.render('site/index', {location: location, isAuthenticated: req.isAuthenticated(),
     user: req.user});
 });

@@ -6,12 +6,6 @@
     <title>GlobeTweet | Home</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-    <!-- link to scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.js'></script>
-    <script src="/socket.io/socket.io.js"></script>
-
     <!-- link to styles -->
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.css" rel='stylesheet' />
@@ -62,6 +56,7 @@
         <h3>Currently Viewing <div id="counter"></div> Tweets about <%= location %></h3>
 
         <div id="tweetd"></div>
+
       </div>
 
       <div class="col-xs-8">
@@ -70,14 +65,13 @@
 
     </div>
 
-    <script>
-      window.addEventListener('load', function() {
-        geocoder.query('<%= location %>' || 'San Francisco', showMap);
-      });
-    </script>
-
-    <!-- link to map script -->
+    <!-- link to scripts -->
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.js'></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="scripts/main.js"></script>
+
   </body>
 </html>
 
