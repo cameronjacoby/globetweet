@@ -1,18 +1,16 @@
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
-  io = require('socket.io').listen(server),
   ejs = require('ejs'),
   bodyParser = require('body-parser'),
-  // Twitter = require('node-tweet-stream'),
   passport = require('passport'),
   passportLocal = require('passport-local'),
+  flash = require('connect-flash'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
-  flash = require('connect-flash'),
   OAuth = require('oauth'),
+  io = require('socket.io').listen(server),
   db = require('./models/index');
-  // var tweets = require('./tweets.json');
 
 
 app.set('view engine', 'ejs');
@@ -51,6 +49,7 @@ passport.deserializeUser(function(id, done) {
     done(error, user);
   });
 });
+
 
 // set up oauth
 var oauth = new OAuth.OAuth(
