@@ -39,7 +39,7 @@ var getTweets = function(callback) {
 var showTweets = function() {
 
   tweetDiv.prepend($('<div class="clr"><img src="'
-    + tweetArr[count].user.profile_image_url + '" > <strong>'
+    + tweetArr[count].user.profile_image_url + '" > <strong>@'
     + tweetArr[count].user.screen_name + ':</strong> <a href="http://twitter.com/'
     + tweetArr[count].user.screen_name + '/status/'
     + tweetArr[count].id_str + '" target="blank">'
@@ -72,7 +72,7 @@ var showMarker = function(lng, lat) {
       ]
     },
     properties: {
-      description: tweetArr[count].user.screen_name + ': ' + tweetArr[count].text,
+      description: '@' + tweetArr[count].user.screen_name + ': ' + tweetArr[count].text,
       'marker-size': 'small',
       'marker-color': '#FC4607',
       'marker-symbol': 'star'

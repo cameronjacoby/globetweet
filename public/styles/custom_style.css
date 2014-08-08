@@ -1,6 +1,7 @@
 .message {
   margin-top: 20px;
-  color: red;
+  margin-bottom: -10px;
+  color: #FC4607;
 }
 
 .page-content {
@@ -81,6 +82,15 @@ form {
 #four-oh-four {
   margin-top: 40px;
   text-align: center;
+}
+
+.navbar {
+  background-color: #191919;
+}
+
+.btn {
+  background-color: #FC4607;
+  color: #fff;
 }
 
 
