@@ -23,8 +23,9 @@
       </div>
     </nav>
 
-    <div class="container" id="page-content">
-      <div class="col-xs-6">
+    <div class="container page-content">
+      <div class="col-xs-3 col-md-4"></div>
+      <div class="col-xs-6 col-md-4">
         <h1>Sign Up</h1>
 
         <% if (typeof message !== 'undefined') { %>
@@ -35,29 +36,30 @@
 
         <form role="form" class="sign-log" method="post" action="/signup">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="Type your username" value="<%= username %>" autofocus>
+            <label for="username"></label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<%= username %>" autofocus>
           </div>
 
           <div class="form-group">
-            <label for="default-search">Default Search</label>
-            <input type="text" name="defaultSearch" class="form-control" id="default-search" placeholder="GlobeTweet will automatically load tweets related to your default search" value="<%= defaultSearch %>">
+            <label for="password"></label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
           </div>
 
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Type your password">
+            <label for="default-search"></label>
+            <input type="text" name="defaultSearch" class="form-control" id="default-search" placeholder="Default Search" value="<%= defaultSearch %>">
+            <p>GlobeTweet will automatically load tweets related to your default search.</p>
           </div>
           
           <div class="form-group">
-            <input type="submit" class="btn btn-default" value="Sign up">
+            <input type="submit" class="btn btn-default sign-log-btn" value="Sign Up">
           </div>
         </form>
 
         <p><a href="/login">Already have an account? Log in here.</a></p>
       </div>
 
-      <div class="col-xs-6"></div>
+      <div class="col-xs-3 col-md-4"></div>
 
     </div>
   </body>

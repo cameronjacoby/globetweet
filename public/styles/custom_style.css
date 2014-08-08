@@ -3,14 +3,13 @@
   color: red;
 }
 
-#page-content {
+.page-content {
   margin-top: 50px;
 }
 
 #left-scroll {
-  height: 700px;
+  height: 588px;
   overflow: scroll;
-  padding-left: 80px;
 }
 
 .clr:after {
@@ -29,11 +28,24 @@ h4 {
 
 form {
   margin-top: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
 }
 
 .sign-log {
   margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.sign-log input {
+  margin-top: -15px;
+}
+
+.sign-log p {
+  margin-top: 10px;
+}
+
+.sign-log-btn {
+  margin-bottom: -30px;
 }
 
 #tweet-count {
@@ -63,7 +75,12 @@ form {
 
 #map {
   width: 100%;
-  height: 700px;
+  height: 800px;
+}
+
+#four-oh-four {
+  margin-top: 40px;
+  text-align: center;
 }
 
 

@@ -1,7 +1,14 @@
 // render map
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2FtZXJvbmphY29ieSIsImEiOiI1RnVTdEUwIn0.pImMEyK7Ziab2QE7N-TK0A';
-var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
-  .setView([0, 0], 2);
+var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki', {
+  center: [0, 0],
+  zoom: 2,
+  minZoom: 2,
+  maxBounds: [
+    [-90, -180],
+    [90, 180]
+  ]
+});
 
 
 // set variables
@@ -25,27 +32,6 @@ var getTweets = function(callback) {
     console.log(tweetArr);
     callback();
   });
-};
-
-
-// function to show markers on map
-var showMarker = function(lng, lat) {
-  L.mapbox.featureLayer({
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        lng,
-        lat
-      ]
-    },
-    properties: {
-      description: tweetArr[count].user.screen_name + ': ' + tweetArr[count].text,
-      'marker-size': 'medium',
-      'marker-color': '#FC4607',
-      'marker-symbol': 'star'
-    }
-  }).addTo(map);
 };
 
 
@@ -74,6 +60,27 @@ var showTweets = function() {
 };
 
 
+// function to show markers on map
+var showMarker = function(lng, lat) {
+  L.mapbox.featureLayer({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        lng,
+        lat
+      ]
+    },
+    properties: {
+      description: tweetArr[count].user.screen_name + ': ' + tweetArr[count].text,
+      'marker-size': 'small',
+      'marker-color': '#FC4607',
+      'marker-symbol': 'star'
+    }
+  }).addTo(map);
+};
+
+
 // function to stream tweets & place markers
 var stream = function() {
 
@@ -96,7 +103,7 @@ var stream = function() {
 
     showTweets();
 
-    setTimeout(streamTweet, 1500);
+    setTimeout(streamTweet, 2000);
   })();
 };
 

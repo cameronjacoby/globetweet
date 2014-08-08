@@ -23,8 +23,9 @@
       </div>
     </nav>
 
-    <div class="container" id="page-content">
-      <div class="col-xs-6">
+    <div class="container page-content">
+      <div class="col-xs-3 col-md-4"></div>
+      <div class="col-xs-6 col-md-4">
         <h1>Log In</h1>
 
         <% if (typeof message !== 'undefined') { %>
@@ -35,24 +36,24 @@
 
         <form role="form" class="sign-log" method="post" action="/login">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="Type your username" value="<%= username %>" autofocus>
+            <label for="username"></label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<%= username %>" autofocus>
           </div>
 
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Type your password">
+            <label for="password"></label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
           </div>
 
           <div class="form-group">
-            <input type="submit" class="btn btn-default" value="Log In">
+            <input type="submit" class="btn btn-default sign-log-btn" value="Log In">
           </div>
         </form>
 
         <p><a href="/signup">Don't have an account yet? Sign up here.</a></p>
       </div>
 
-      <div class="col-xs-6"></div>
+      <div class="col-xs-3 col-md-4"></div>
 
     </div>
   </body>
