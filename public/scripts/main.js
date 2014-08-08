@@ -49,6 +49,31 @@ var showMarker = function(lng, lat) {
 };
 
 
+// function to show tweets
+var showTweets = function() {
+
+  tweetDiv.prepend($('<div class="clr"><img src="'
+    + tweetArr[count].user.profile_image_url + '" > <strong>'
+    + tweetArr[count].user.screen_name + ':</strong> <a href="http://twitter.com/'
+    + tweetArr[count].user.screen_name + '/status/'
+    + tweetArr[count].id_str + '" target="blank">'
+    + tweetArr[count].text + '</a></div>').fadeIn('slow','swing'));
+
+  count += 1;
+  counter.html(count);
+
+  if (count > 0) {
+    loadMessage.hide();
+    tweetCount.show();
+  }
+
+  if (count === tweetArr.length) {
+    doneMessage.show();
+    return;
+  }
+};
+
+
 // function to stream tweets & place markers
 var stream = function() {
 
@@ -69,27 +94,9 @@ var stream = function() {
       });
     }
 
-    tweetDiv.prepend('<div class="clr"><img src="'
-      + tweetArr[count].user.profile_image_url + '" > <strong>'
-      + tweetArr[count].user.screen_name + ':</strong> <a href="http://twitter.com/'
-      + tweetArr[count].user.screen_name + '/status/'
-      + tweetArr[count].id_str + '" target="blank">'
-      + tweetArr[count].text + '</a></div>');
+    showTweets();
 
-    count += 1;
-    counter.html(count);
-
-    if (count > 0) {
-      loadMessage.hide();
-      tweetCount.show();
-    }
-
-    if (count === tweetArr.length) {
-      doneMessage.show();
-      return;
-    }
-
-    setTimeout(streamTweet, 1000);
+    setTimeout(streamTweet, 1500);
   })();
 };
 
