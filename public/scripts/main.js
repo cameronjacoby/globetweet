@@ -13,7 +13,7 @@ tweetDiv = $('#tweetd'),
 counter = $('#counter'),
 loadMessage = $('#load-msg'),
 tweetCount = $('#tweet-count'),
-doneMessage = $('#done-message');
+doneMessage = $('#done-msg');
 
 
 // function to receive data from socket
