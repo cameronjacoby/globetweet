@@ -5,7 +5,7 @@ var map = L.mapbox.map('map', 'cameronjacoby.j4l2ebki')
 
 
 // set variables
-var socket = io(location.origin.replace(/^http/, 'socket')),
+var socket = io('http://localhost'),
 tweetArr = [],
 count = 0,
 geocoder = L.mapbox.geocoder('mapbox.places-v1'),
