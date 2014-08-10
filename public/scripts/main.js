@@ -26,6 +26,7 @@ doneMessage = $('#done-msg');
 // function to receive data from socket
 var getTweets = function(callback) {
   socket.on('receive_tweets', function(tweets) {
+    console.log('socket is connected');
     tweets.forEach(function(tweet) {
       tweetArr.push(tweet);
     });
