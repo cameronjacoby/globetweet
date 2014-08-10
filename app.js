@@ -113,6 +113,7 @@ app.post('/search', function(req, res) {
   var keyword = req.body.keyword;
   searchKey = keyword;
 
+  console.log(searchKey);
   searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
   console.log(searchURL);
 

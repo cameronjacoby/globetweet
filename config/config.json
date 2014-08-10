@@ -9,9 +9,13 @@
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
-  "production": {
-    "database": "globe_tweet_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+  "production": 
+  {
+    "dialect": "postgres",
+    "username": "xarmgfofcwpxjd",
+    "password": "F6vCeHWcG60jD9da4D0csV9b7x",
+    "host": "ec2-54-197-246-197.compute-1.amazonaws.com",
+    "port": "5432",
+    "database": "d2pdrekcr31ibk"
   }
 }
