@@ -90,7 +90,7 @@ app.get('/', function(req, res) {
   }
 
   console.log(searchKey);
-  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=5';
   console.log(searchURL);
 
   oauth.get(searchURL, null, null, function(e, data, res) {
@@ -114,7 +114,7 @@ app.post('/search', function(req, res) {
   searchKey = keyword;
 
   console.log(searchKey);
-  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=5';
   console.log(searchURL);
 
   oauth.get(searchURL, null, null, function(e, data, res) {
