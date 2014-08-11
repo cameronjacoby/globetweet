@@ -8,7 +8,7 @@ var express = require('express'),
   flash = require('connect-flash'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
-  OAuth = require('oauth'),
+  // OAuth = require('oauth'),
   io = require('socket.io').listen(server),
   db = require('./models/index');
 
@@ -51,21 +51,30 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-// set up oauth
-var oauth = new OAuth.OAuth(
-  'https://api.twitter.com/oauth/request_token',
-  'https://api.twitter.com/oauth/access_token',
-  process.env.TWITTER_KEY,
-  process.env.TWITTER_SECRET,
-  '1.0A',
-  null,
-  'HMAC-SHA1'
-);
+// // set up oauth
+// var oauth = new OAuth.OAuth(
+//   'https://api.twitter.com/oauth/request_token',
+//   'https://api.twitter.com/oauth/access_token',
+//   process.env.TWITTER_KEY,
+//   process.env.TWITTER_SECRET,
+//   '1.0A',
+//   null,
+//   'HMAC-SHA1'
+// );
+
+// set up tweet stream
+var Twitter = require('node-tweet-stream'),
+  t = new Twitter({
+    consumer_key: process.env.TWITTER_KEY,
+    consumer_secret: process.env.TWITTER_SECRET,
+    token: process.env.TWITTER_TOKEN,
+    token_secret: process.env.TWITTER_TOKEN_SECRET
+  });
 
 
 // set variables for searched keyword and URL
 var searchKey;
-var searchURL;
+// var searchURL;
 
 
 // connect to socket
@@ -75,6 +84,13 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
+});
+
+
+// stream tweets
+t.on('tweet', function (tweet) {
+  console.log('tweet received', tweet);
+  io.sockets.emit('receive_tweet', tweet);
 });
 
 
@@ -90,14 +106,15 @@ app.get('/', function(req, res) {
   }
 
   console.log(searchKey);
-  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
-  console.log(searchURL);
+  t.track(searchKey);
+  // searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  // console.log(searchURL);
 
-  oauth.get(searchURL, null, null, function(e, data, res) {
-    var tweets = JSON.parse(data).statuses;
-    io.sockets.emit('receive_tweets', tweets);
-    // console.log(tweets);
-  });
+  // oauth.get(searchURL, null, null, function(e, data, res) {
+  //   var tweets = JSON.parse(data).statuses;
+  //   io.sockets.emit('receive_tweets', tweets);
+  //   // console.log(tweets);
+  // });
  
   res.render('site/index', {searchKey: searchKey,
     isAuthenticated: req.isAuthenticated(),
@@ -110,17 +127,21 @@ app.get('/', function(req, res) {
 // set searchKey to new keyword
 app.post('/search', function(req, res) {
 
+  t.untrack(searchKey);
+
   var keyword = req.body.keyword;
   searchKey = keyword;
+  console.log(searchKey);
+  t.track(searchKey);
 
-  searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
-  console.log(searchURL);
+  // searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
+  // console.log(searchURL);
 
-  oauth.get(searchURL, null, null, function(e, data, res) {
-    var tweets = JSON.parse(data).statuses;
-    io.sockets.emit('receive_tweets', tweets);
-    // console.log(tweets);
-  });
+  // oauth.get(searchURL, null, null, function(e, data, res) {
+  //   var tweets = JSON.parse(data).statuses;
+  //   io.sockets.emit('receive_tweets', tweets);
+  //   // console.log(tweets);
+  // });
 
   res.render('site/index', {searchKey: searchKey,
     isAuthenticated: req.isAuthenticated(),
