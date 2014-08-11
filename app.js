@@ -98,6 +98,9 @@ t.on('tweet', function (tweet) {
 // initial searchKey is user's defaultSearch if logged in
 app.get('/', function(req, res) {
 
+  t.untrack(searchKey);
+  console.log('untracking', searchKey);
+
   if (!req.user) {
     searchKey = 'San Francisco';
   }
@@ -106,7 +109,10 @@ app.get('/', function(req, res) {
   }
 
   console.log(searchKey);
+
   t.track(searchKey);
+  console.log('tracking', searchKey);
+
   // searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
   // console.log(searchURL);
 
@@ -128,11 +134,14 @@ app.get('/', function(req, res) {
 app.post('/search', function(req, res) {
 
   t.untrack(searchKey);
+  console.log('untracking', searchKey);
 
   var keyword = req.body.keyword;
   searchKey = keyword;
   console.log(searchKey);
+
   t.track(searchKey);
+  console.log('tracking', searchKey);
 
   // searchURL = 'https://api.twitter.com/1.1/search/tweets.json?q=' + searchKey + '&result_type=recent&count=100';
   // console.log(searchURL);

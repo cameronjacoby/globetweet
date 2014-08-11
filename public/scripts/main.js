@@ -16,7 +16,7 @@ var socket = io(),
 // tweetArr = [],
   tweetDiv = $('#tweetd'),
   count = 0,
-// geocoder = L.mapbox.geocoder('mapbox.places-v1'),
+  geocoder = L.mapbox.geocoder('mapbox.places-v1'),
   counter = $('#counter'),
   loadMessage = $('#load-msg'),
   tweetCount = $('#tweet-count');
@@ -24,6 +24,29 @@ var socket = io(),
 
 
 socket.on('receive_tweet', function(tweet) {
+
+
+  // function to show markers on map
+  var showMarker = function(lng, lat) {
+    L.mapbox.featureLayer({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          lng,
+          lat
+        ]
+      },
+      properties: {
+        description: '@' + tweet.user.screen_name + ': ' + tweet.text,
+        'marker-size': 'small',
+        'marker-color': '#FC4607',
+        'marker-symbol': 'star'
+      }
+    }).addTo(map);
+  };
+
+
   console.log('receiving tweet');
   tweetDiv.prepend($('<div class="clr"><img src="'
     + tweet.user.profile_image_url + '" > <strong>@'
@@ -38,6 +61,21 @@ socket.on('receive_tweet', function(tweet) {
   if (count > 0) {
     loadMessage.hide();
     tweetCount.show();
+  }
+
+  if (tweet.geo) {
+    showMarker(tweet.geo.coordinates[1], tweet.geo.coordinates[0]);
+  }
+
+  else if (tweet.user.location) {
+    geocoder.query(tweet.user.location, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        showMarker(result.latlng[1], result.latlng[0]);
+      }
+    });
   }
 
 });
