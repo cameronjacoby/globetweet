@@ -56,6 +56,7 @@ var showTweets = function() {
 
   if (count === tweetArr.length) {
     doneMessage.show();
+    count = 0;
     return;
   }
 };
