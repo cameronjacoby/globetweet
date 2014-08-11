@@ -9,7 +9,7 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   cookieSession = require('cookie-session'),
   OAuth = require('oauth'),
-  io = require('socket.io').listen(server),
+  io = require('socket.io-client').listen(server),
   db = require('./models/index');
 
 
