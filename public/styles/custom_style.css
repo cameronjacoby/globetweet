@@ -57,7 +57,7 @@ form {
   display: inline;
 }
 
-#done-msg {
+#wait-msg {
   display: none;
   margin-top: -10px;
   margin-bottom: 20px;
@@ -92,7 +92,3 @@ form {
   background-color: #FC4607;
   color: #fff;
 }
-
-
-
-
