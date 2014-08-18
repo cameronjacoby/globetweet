@@ -22,3 +22,7 @@ The motivation for this project is to discover what people around the world are 
 * Sequelize
 
 ###Find it here: [http://globetweet.herokuapp.com/](http://globetweet.herokuapp.com/)
+
+--------------------
+
+![ScreenShot](public/images/screenshot.png)
