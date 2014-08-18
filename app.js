@@ -186,5 +186,5 @@ app.get('/*', function(req, res) {
 
 
 server.listen(process.env.PORT || 3000, function(){
-  console.log('server started on localhost:3000');
+  console.log('server started');
 });

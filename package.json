@@ -1,7 +1,7 @@
 {
   "name": "globe_tweet",
   "version": "0.0.1",
-  "description": "GlobeTweet is a web application that allows users to search anywhere on the globe and view a live stream of tweets from that location.",
+  "description": "Search any keyword to view a live stream of tweets along with location mapping.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
