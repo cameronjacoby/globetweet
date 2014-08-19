@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<% include ../partials/header %>
+
     <title>GlobeTweet | Sign Up</title>
 
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/globe_tweet.css">
-    <link rel="icon" href="images/tw_logo.png">
   </head>
 
   <body>
 
-    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">GlobeTweet</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home</a></li>
-          <li><a href="/signup">Sign Up</a></li>
-          <li><a href="/login">Log In</a></li>
-        </ul> 
-      </div>
-    </nav>
+    <% include ../partials/nav %>
 
     <div class="container page-content">
       <div class="col-xs-3 col-md-4"></div>
@@ -34,16 +19,7 @@
           </p>
         <% } %>
 
-        <form role="form" class="sign-log" method="post" action="/signup">
-          <div class="form-group">
-            <label for="username"></label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<%= username %>" autofocus>
-          </div>
-
-          <div class="form-group">
-            <label for="password"></label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-          </div>
+        <% include ../partials/sign_log %>
 
           <div class="form-group">
             <label for="default-search"></label>

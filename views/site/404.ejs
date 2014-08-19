@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<% include ../partials/header %>
+
     <title>GlobeTweet | 404</title>
     
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/globe_tweet.css">
-    <link rel="icon" href="images/tw_logo.png">
   </head>
   <body>
-
-    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">GlobeTweet</a>
-        </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home</a></li>
-
-          <% if (!isAuthenticated) { %>
-            <li><a href="/signup">Sign Up</a></li>
-            <li><a href="/login">Log In</a></li>
-          <% } else { %>
-            <li><a href="/"><%= user.username %></a></li>
-            <li><a href="/logout">Log Out</a></li>
-          <% } %>
-
-        </ul>
-      </div>
-    </nav>
+    
+    <% include ../partials/nav_auth %>
 
     <div class="container page-content">
       <div class="col-md-1"></div>
