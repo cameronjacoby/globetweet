@@ -1,21 +1,21 @@
 {
-  "name": "globe_tweet",
+  "name": "globetweet",
   "version": "0.0.1",
-  "description": "Search any keyword to view a live stream of tweets along with location mapping.",
+  "description": "Search any keyword to view a live stream of tweets with location mapping.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cameronjacoby/globe_tweet.git"
+    "url": "https://github.com/cameronjacoby/globetweet.git"
   },
   "author": "Cameron Jacoby",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cameronjacoby/globe_tweet/issues"
+    "url": "https://github.com/cameronjacoby/globetweet/issues"
   },
-  "homepage": "https://github.com/cameronjacoby/globe_tweet",
+  "homepage": "https://github.com/cameronjacoby/globetweet",
   "dependencies": {
     "bcrypt": "^0.8.0",
     "body-parser": "^1.5.2",
