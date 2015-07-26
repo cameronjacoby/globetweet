@@ -57,10 +57,10 @@ twitter = new Twitter({
 });
 
 // stream tweets
-// twitter.on('tweet', function (tweet) {
-//   console.log('tweet received', tweet);
-//   io.sockets.emit('receive_tweet', tweet);
-// });
+twitter.on('tweet', function (tweet) {
+  console.log('tweet received', tweet);
+  io.sockets.emit('receive_tweet', tweet);
+});
 
 // set variable for search keyword
 var searchKey;
@@ -114,17 +114,14 @@ app.post('/signup', function(req, res) {
   newDefaultSearch = req.body.defaultSearch;
 
   db.user.createNewUser(newUsername, newPassword, newDefaultSearch,
-    function(success) {
-      res.render('site/login', {
-        message: success.message,
-        username: newUsername
-      });
-    },
     function(err) {
-      res.render('site/signup', {
-        message: err.message,
-        username: newUsername,
-        defaultSearch: newDefaultSearch
+      console.log('error', err.message);
+      res.redirect('/');
+    },
+    function(success) {
+      console.log('success', success.message);
+      passport.authenticate('local')(req, res, function () {
+        res.redirect('/');
       });
     }
   );

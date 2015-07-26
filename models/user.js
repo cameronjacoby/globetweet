@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
       // create a new user
       createNewUser: function(username, password, defaultSearch, err, success) {
         if (password.length < 6) {
-          err({message: 'Your password should be more than 6 characters.'});
+          err({message: 'Your password should be at least 6 characters.'});
         }
         else {
           User.create({
