@@ -17,4 +17,4 @@ The motivation for this project is to discover what people around the world are 
 
 ----------
 
-### Find it here: [http://globetweet.herokuapp.com](globetweet.herokuapp.com)
+### Find it here: [globetweet.herokuapp.com](http://globetweet.herokuapp.com)
