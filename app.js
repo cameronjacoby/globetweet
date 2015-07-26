@@ -57,10 +57,10 @@ twitter = new Twitter({
 });
 
 // stream tweets
-twitter.on('tweet', function (tweet) {
-  console.log('tweet received', tweet);
-  io.sockets.emit('receive_tweet', tweet);
-});
+// twitter.on('tweet', function (tweet) {
+//   console.log('tweet received', tweet);
+//   io.sockets.emit('receive_tweet', tweet);
+// });
 
 // set variable for search keyword
 var searchKey;

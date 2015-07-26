@@ -1,0 +1,78 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
+/* reset */
+body {
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans;
+  line-height: 1.5;
+}
+
+/* boostrap overrides */
+a:focus, button:focus {
+  outline: none;
+}
+.navbar {
+  margin-bottom: 0;
+}
+.btn-primary {
+  background-color: #fc4607;
+  border-color: #b22f02;
+  color: #ffffff;
+}
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+  background-color: #b22f02;
+  border-color: #b22f02;
+  color: #ffffff;
+  outline: none;
+}
+
+/* helper classes */
+.tmp-hidden {
+  display: none;
+}
+
+/* tweets */
+.scrolling-tweets {
+  max-height: 572px;
+  overflow: scroll;
+}
+.scrolling-tweets div {
+  margin-bottom: 20px;
+}
+.scrolling-tweets img {
+  border-radius: 50px;
+  float: left;
+  margin-right: 10px;
+  width: 50px;
+}
+.clr:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+.show-mobile {
+  /*margin-top: 0;*/
+}
+
+/* mapbox */
+.mapbox {
+  height: 800px;
+  width: 100%;
+}
+
+/* media queries */
+@media screen and (max-width: 991px) {
+  .scrolling-tweets {
+    max-height: 190px;
+  }
+  .mapbox {
+    margin-top: 1em;
+  }
+}
+@media screen and (max-width: 991px) {
+  .scrolling-tweets {
+    max-height: 220px;
+  }
+  .mapbox {
+    height: 600px;
+  }
+}

@@ -1,8 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <head>
-    <meta charset=utf-8 />
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/globe_tweet.css">
-    <link rel="icon" href="images/tw_logo.png">
+  <!-- bootstrap css -->
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- mapbox css -->
+  <link type="text/css" rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.css">
+  
+  <!-- custom styles -->
+  <link type="text/css" rel="stylesheet" href="styles/main.css">
+
+  <!-- favicon -->
+  <link rel="icon" href="images/twitter_logo.png">
+  
+  <title>GlobeTweet</title>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">GlobeTweet</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if (!isAuthenticated) { %>
+            <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
+          <% } else { %>
+            <li><a href="/"><%= user.username %></a></li>
+            <li><a href="/logout">Log Out</a></li>
+          <% } %>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <!-- signup modal -->
+  <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="signupModal">Sign Up</h4>
+        </div>
+        <form method="post" action="/signup">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <input type="text" name="defaultSearch" class="form-control" placeholder="Default Search">
+            </div>
+            <p class="small text-muted">Already have an account? <a href="#" id="show-login">Log in</a>.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="Sign Up">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- login modal -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="loginModal">Log In</h4>
+        </div>
+        <form method="post" action="/login">
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            <p class="small text-muted">Don't have an account yet? <a href="#" id="show-signup">Sign up</a>.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="Log In">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
