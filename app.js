@@ -7,6 +7,7 @@ var express = require('express'),
     flash = require('connect-flash'),
     db = require('./models/index'),
     io = require('socket.io').listen(server),
+    env = require('dotenv').load(),
     Twitter = require('node-tweet-stream');
 
 app.set('view engine', 'ejs');
