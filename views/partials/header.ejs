@@ -56,18 +56,16 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="signupModal">Sign Up</h4>
         </div>
-        <form action="/users" method="post">
+        <form class="validate-fields" action="/users" method="post">
           <div class="modal-body">
             <div class="form-group">
-              <input type="text" name="user[username]" class="form-control" placeholder="Username">
+              <input type="text" name="user[username]" class="form-control" placeholder="Username" required minlength="6" maxlength="30">
             </div>
-
             <div class="form-group">
-              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password" required minlength="6">
             </div>
-
             <div class="form-group">
-              <input type="text" name="user[defaultSearch]" class="form-control" placeholder="Default Search">
+              <input type="text" name="user[defaultSearch]" class="form-control" placeholder="Default Search" required>
             </div>
             <p class="small text-muted">Already have an account? <a href="#" id="show-login">Log in</a>.</p>
           </div>
@@ -88,14 +86,13 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="loginModal">Log In</h4>
         </div>
-        <form action="/login" method="post">
+        <form class="validate-fields" action="/login" method="post">
           <div class="modal-body">
             <div class="form-group">
-              <input type="text" name="user[username]" class="form-control" placeholder="Username">
+              <input type="text" name="user[username]" class="form-control" placeholder="Username" required>
             </div>
-
             <div class="form-group">
-              <input type="password" name="user[password]" class="form-control" placeholder="Password">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password" required>
             </div>
             <p class="small text-muted">Don't have an account yet? <a href="#" id="show-signup">Sign up</a>.</p>
           </div>
@@ -107,12 +104,3 @@
       </div>
     </div>
   </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <% if (typeof message !== 'undefined') { %>
-          <%= message %>
-        <% } %>
-      </div>
-    </div>

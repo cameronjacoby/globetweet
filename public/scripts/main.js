@@ -1,5 +1,10 @@
 $(function() {
 
+  // form validation
+  $('.validate-fields').each(function() {
+    $(this).validate();
+  });
+
   // signup modal
   $('#signup-modal').on('shown.bs.modal', function () {
     $(this).find('form input:first').focus();

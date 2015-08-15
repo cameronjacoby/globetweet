@@ -24,10 +24,22 @@ a:focus, button:focus {
   color: #ffffff;
   outline: none;
 }
+.form-inline .form-group {
+  vertical-align: top;
+}
 
 /* helper classes */
 .tmp-hidden {
   display: none;
+}
+
+/* form validation */
+label.error {
+  color: #aa0c37;
+  display: block;
+  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 
 /* tweets */

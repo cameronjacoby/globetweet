@@ -1,12 +1,13 @@
 <% include ../partials/header %>
 
+  <div class="container">
     <div class="row">
       <div class="col-md-4">
         <h2>Search for Tweets</h2>
         <hr>
-        <form class="form-inline" action="/search" method="post">
+        <form class="form-inline validate-fields" action="/search" method="post">
           <div class="form-group">
-            <input type="text" name="keyword" class="form-control" placeholder="Keyword(s)" autofocus>
+            <input type="text" name="keyword" class="form-control" placeholder="Keyword(s)" required autofocus>
           </div>
           <div class="form-group">
             <input type="submit" value="Search" class="btn btn-primary">
@@ -39,18 +40,21 @@
   <!-- jquery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 
+  <!-- jquery validate -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+
   <!-- bootstrap js -->
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  
+  <!-- socket.io -->
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
   <!-- mapbox js -->
   <script type="text/javascript" src='https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.js'></script>
-  
-  <!-- socket.io -->
-  <script src="/socket.io/socket.io.js"></script>
 
   <!-- custom scripts -->
-  <script src="scripts/tweets.js"></script>
-  <script src="scripts/modals.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/tweets.js"></script>
 
 </body>
 </html>

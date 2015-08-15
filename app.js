@@ -137,10 +137,14 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/profile', function(req, res) {
-  res.render('users/profile', {
-    isAuthenticated: req.isAuthenticated(),
-    user: req.user
-  });
+  if (req.user) {
+    res.render('users/profile', {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user
+    });
+  } else {
+    res.redirect('/');
+  }
 });
 
 server.listen(process.env.PORT || 3000, function(){
