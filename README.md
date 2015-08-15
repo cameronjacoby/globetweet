@@ -1,5 +1,4 @@
-GlobeTweet
-===========
+# GlobeTweet
 
 GlobeTweet allows users to search any keyword and view a live stream of related tweets. Tweet locations are pinned on the adjacent map in real-time.
 
@@ -15,6 +14,4 @@ The motivation for this project is to discover what people around the world are 
 * Twitter Streaming API
 * Mapbox
 
-----------
-
-### Find it here: <a href="http://globetweet.herokuapp.com" target="_blank">http://globetweet.herokuapp.com</a>
+### Find it here: <a href="http://globetweet.herokuapp.com" target="_blank">globetweet.herokuapp.com</a>
