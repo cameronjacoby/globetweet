@@ -14,13 +14,13 @@ a:focus, button:focus {
   margin-bottom: 0;
 }
 .btn-primary {
-  background-color: #fc4607;
-  border-color: #b22f02;
+  background-color: #f90d50;
+  border-color: #aa0c37;
   color: #ffffff;
 }
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #b22f02;
-  border-color: #b22f02;
+.btn-primary:active, .btn-primary.active, .btn-primary:focus, .btn-primary.focus, .btn-primary:hover {
+  background-color: #aa0c37;
+  border-color: #aa0c37;
   color: #ffffff;
   outline: none;
 }
@@ -48,9 +48,6 @@ a:focus, button:focus {
   clear: both;
   content: "";
   display: block;
-}
-.show-mobile {
-  /*margin-top: 0;*/
 }
 
 /* mapbox */

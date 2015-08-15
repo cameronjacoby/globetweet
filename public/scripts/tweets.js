@@ -30,7 +30,7 @@ $(function() {
       properties: {
         description: '@' + twitterHandle + ': ' + tweetText,
         'marker-size': 'small',
-        'marker-color': '#fc4607',
+        'marker-color': '#f90d50',
         'marker-symbol': 'star'
       }
     }).addTo(map);
@@ -72,7 +72,6 @@ $(function() {
         }
       });
     }
-
   });
 
 });

@@ -56,18 +56,18 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="signupModal">Sign Up</h4>
         </div>
-        <form method="post" action="/signup">
+        <form action="/users" method="post">
           <div class="modal-body">
             <div class="form-group">
-              <input type="text" name="username" class="form-control" placeholder="Username">
+              <input type="text" name="user[username]" class="form-control" placeholder="Username">
             </div>
 
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Password">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
             </div>
 
             <div class="form-group">
-              <input type="text" name="defaultSearch" class="form-control" placeholder="Default Search">
+              <input type="text" name="user[defaultSearch]" class="form-control" placeholder="Default Search">
             </div>
             <p class="small text-muted">Already have an account? <a href="#" id="show-login">Log in</a>.</p>
           </div>
@@ -88,14 +88,14 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="loginModal">Log In</h4>
         </div>
-        <form method="post" action="/login">
+        <form action="/login" method="post">
           <div class="modal-body">
             <div class="form-group">
-              <input type="text" name="username" class="form-control" placeholder="Username">
+              <input type="text" name="user[username]" class="form-control" placeholder="Username">
             </div>
 
             <div class="form-group">
-              <input type="password" name="password" class="form-control" placeholder="Password">
+              <input type="password" name="user[password]" class="form-control" placeholder="Password">
             </div>
             <p class="small text-muted">Don't have an account yet? <a href="#" id="show-signup">Sign up</a>.</p>
           </div>

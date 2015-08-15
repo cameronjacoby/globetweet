@@ -108,12 +108,10 @@ app.post('/search', function(req, res) {
   });
 });
 
-app.post('/signup', function(req, res) {
-  newUsername = req.body.username;
-  newPassword = req.body.password;
-  newDefaultSearch = req.body.defaultSearch;
+app.post('/users', function(req, res) {
+  newUser = req.body.user;
 
-  db.user.createNewUser(newUsername, newPassword, newDefaultSearch,
+  db.user.createNewUser(newUser.username, newUser.password, newUser.defaultSearch,
     function(err) {
       console.log('error', err.message);
       res.redirect('/');

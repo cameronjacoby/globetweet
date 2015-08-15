@@ -60,8 +60,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   passport.use(new passportLocal.Strategy({
-    usernameField: 'username',
-    passwordField: 'password',
+    usernameField: 'user[username]',
+    passwordField: 'user[password]',
     passReqToCallback: true
   },
 
@@ -79,7 +79,7 @@ module.exports = function(sequelize, DataTypes) {
     .complete(function(error, user) {
       if (error) {
         console.log(error);
-        return done(err, req.flash('loginMessage', 'Oops! Something went wrong on our end.'));
+        return done(err, req.flash('loginMessage', 'An error has occured. Please try again.'));
       }
       if (user === null) {
         return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
