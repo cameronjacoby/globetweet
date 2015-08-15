@@ -40,7 +40,7 @@
             <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
             <li><a href="#" data-toggle="modal" data-target="#login-modal">Log In</a></li>
           <% } else { %>
-            <li><a href="/"><%= user.username %></a></li>
+            <li><a href="/profile"><%= user.username %></a></li>
             <li><a href="/logout">Log Out</a></li>
           <% } %>
         </ul>
@@ -107,3 +107,12 @@
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <% if (typeof message !== 'undefined') { %>
+          <%= message %>
+        <% } %>
+      </div>
+    </div>

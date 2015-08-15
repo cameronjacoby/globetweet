@@ -136,6 +136,13 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+app.get('/profile', function(req, res) {
+  res.render('users/profile', {
+    isAuthenticated: req.isAuthenticated(),
+    user: req.user
+  });
+});
+
 server.listen(process.env.PORT || 3000, function(){
   console.log('server started');
 });

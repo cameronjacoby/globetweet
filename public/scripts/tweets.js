@@ -39,6 +39,7 @@ $(function() {
   // display wait message if no tweets after 15 seconds
   setTimeout(function() {
     if (tweetCount === 0) {
+      $loadMessage.hide();
       $waitMessage.fadeIn();
     }
   }, 15000);

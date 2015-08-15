@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Profile</h2>
+        <hr>
+        <p><strong>Username:</strong>&nbsp;&nbsp;<%= user.username %></p>
+        <p><strong>Default search:</strong>&nbsp;&nbsp;<%= user.defaultSearch %></p>
+        <% if(false) { %>
+          <hr>
+          <a href="/profile/edit" class="btn btn-default">Edit Profile</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- jquery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- custom scripts -->
+  <script src="scripts/modals.js"></script>
+
+</body>
+</html>
