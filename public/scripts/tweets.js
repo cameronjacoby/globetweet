@@ -50,7 +50,7 @@ $(function() {
       + tweet.user.screen_name + ':</strong> <a href="http://twitter.com/'
       + tweet.user.screen_name + '/status/'
       + tweet.id_str + '" target="blank">'
-      + tweet.text + '</a></div>').fadeIn('slow','swing')
+      + tweet.text + '</a></div>').fadeIn('slow', 'swing')
     );
 
     tweetCount += 1;
