@@ -9,7 +9,7 @@ The motivation for this project is to discover what people around the world are 
 ## Built With
 
 * Node.js
-* Express
+* ExpressJS
 * Socket.io
 * Twitter Streaming API
 * Mapbox
