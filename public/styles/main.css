@@ -13,17 +13,6 @@ a:focus, button:focus {
 .navbar {
   margin-bottom: 0;
 }
-.btn-primary {
-  background-color: #f90d50;
-  border-color: #aa0c37;
-  color: #ffffff;
-}
-.btn-primary:active, .btn-primary.active, .btn-primary:focus, .btn-primary.focus, .btn-primary:hover {
-  background-color: #aa0c37;
-  border-color: #aa0c37;
-  color: #ffffff;
-  outline: none;
-}
 .form-inline .form-group {
   vertical-align: top;
 }
@@ -31,6 +20,17 @@ a:focus, button:focus {
 /* helper classes */
 .tmp-hidden {
   display: none;
+}
+
+/* buttons */
+.btn-cta {
+  background-color: #f90d50;
+  border-color: #aa0c37;
+  color: #ffffff;
+}
+.btn-cta:focus, .btn-cta:hover {
+  background-color: #aa0c37;
+  color: #ffffff;
 }
 
 /* form validation */
