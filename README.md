@@ -6,7 +6,7 @@ GlobeTweet allows users to search any keyword and view a live stream of related 
 
 The motivation for this project is to discover what people around the world are tweeting about a given topic at any moment. In addition, the location mapping feature provides insight into global trends.
 
-## Built With
+## Built With:
 
 * Node.js
 * ExpressJS
@@ -14,4 +14,6 @@ The motivation for this project is to discover what people around the world are 
 * Twitter Streaming API
 * Mapbox
 
-### Find it here: <a href="http://globetweet.herokuapp.com" target="_blank">globetweet.herokuapp.com</a>
+----------
+
+### <a href="http://globetweet.herokuapp.com" target="_blank">globetweet.herokuapp.com</a>
