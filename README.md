@@ -14,6 +14,4 @@ The motivation for this project is to discover what people around the world are 
 * Twitter Streaming API
 * Mapbox
 
-----------
-
 ### <a href="http://globetweet.herokuapp.com" target="_blank">globetweet.herokuapp.com</a>
