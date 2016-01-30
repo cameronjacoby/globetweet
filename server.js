@@ -55,7 +55,7 @@ app.post('/search', function (req, res) {
   twitter.track(req.searchKey);
   console.log('tracking', req.searchKey);
 
-  res.send({ searchKey: req.searchKey });
+  res.render('site/index', { searchKey: req.searchKey });
 });
 
 server.listen(process.env.PORT || 3000, function() {
