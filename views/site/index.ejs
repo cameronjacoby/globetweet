@@ -16,7 +16,7 @@
         <hr>
 
         <div id="load-msg">
-          <h4>Looking for tweets about <%= searchKey %>...</h4>
+          <h4>Looking for tweets about <%= searchKey %></h4>
         </div>
 
         <div class="tmp-hidden" id="wait-msg">
@@ -37,24 +37,4 @@
     </div>
   </div>
 
-  <!-- jquery -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-
-  <!-- jquery validate -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
-
-  <!-- bootstrap js -->
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  
-  <!-- socket.io -->
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-
-  <!-- mapbox js -->
-  <script type="text/javascript" src='https://api.tiles.mapbox.com/mapbox.js/v2.0.0/mapbox.js'></script>
-
-  <!-- custom scripts -->
-  <script type="text/javascript" src="scripts/main.js"></script>
-  <script type="text/javascript" src="scripts/tweets.js"></script>
-
-</body>
-</html>
+<% include ../partials/footer %>
