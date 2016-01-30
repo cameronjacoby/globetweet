@@ -33,35 +33,29 @@ twitter.on('tweet', function (tweet) {
   io.sockets.emit('receive_tweet', tweet);
 });
 
-// set variable for search keyword
-var searchKey;
-
 // root route automatically tracks tweets from `searchKey`
-// initial `searchKey` is user's `defaultSearch` if logged in
+// default is 'San Francisco'
 app.get('/', function (req, res) {
-  twitter.untrack(searchKey);
-  console.log('untracking', searchKey);
+  twitter.untrack(req.searchKey);
+  console.log('untracking', req.searchKey);
 
-  searchKey = 'San Francisco';
-  twitter.track(searchKey);
-  console.log('tracking', searchKey);
+  req.searchKey = 'San Francisco';
+  twitter.track(req.searchKey);
+  console.log('tracking', req.searchKey);
  
-  res.render('site/index', { searchKey: searchKey });
+  res.render('site/index', { searchKey: req.searchKey });
 });
 
-// when user searches new keyword, set `searchKey`
+// when user searches new keyword, update `searchKey`
 app.post('/search', function (req, res) {
-  twitter.untrack(searchKey);
-  console.log('untracking', searchKey);
+  twitter.untrack(req.searchKey);
+  console.log('untracking', req.searchKey);
 
-  var newKeyword = req.body.keyword;
-  searchKey = newKeyword;
-  console.log('new searchKey', searchKey);
+  req.searchKey = req.body.keyword;
+  twitter.track(req.searchKey);
+  console.log('tracking', req.searchKey);
 
-  twitter.track(searchKey);
-  console.log('tracking', searchKey);
-
-  res.render('site/index', { searchKey: searchKey });
+  res.send({ searchKey: req.searchKey });
 });
 
 server.listen(process.env.PORT || 3000, function() {
