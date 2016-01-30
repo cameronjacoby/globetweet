@@ -6,7 +6,7 @@ GlobeTweet allows users to search any keyword and view a live stream of related 
 
 The motivation for this project is to discover what people around the world are tweeting about a given topic at any moment. In addition, the location mapping feature provides insight into global trends.
 
-## Built With:
+## Technologies
 
 * Node.js
 * ExpressJS
