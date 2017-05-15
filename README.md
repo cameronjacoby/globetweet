@@ -9,11 +9,7 @@ The motivation for this project is to discover what people around the world are 
 ## Technologies
 
 * Node.js
-* ExpressJS
+* Express.js
 * Socket.io
 * Twitter Streaming API
 * Mapbox
-
-## Deployed App
-
-<a href="http://globetweet.herokuapp.com" target="_blank">globetweet.herokuapp.com</a>
